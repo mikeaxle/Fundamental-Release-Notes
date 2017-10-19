@@ -65,7 +65,8 @@
       "desc": "Asset Transfer out of Mutual funds",
       "url": "",
       "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Always uses the net opening Market Value</li><li>Exclude Management Fees = True</li><li>Gross closing Market Value is used if FeeBasis = Accrued</li></ul>",
-      "code": ""
+      "code": "",
+      "isopen": false
     },
     {
       "id": 2,
@@ -76,7 +77,20 @@
       "desc": "This is a sample log",
       "url": "",
       "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
-      "code": ""
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 3,
+      "release": 1,
+      "type": 1,
+      "category": 1,
+      "title": "46070",
+      "desc": "Another Sample title comes here",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
     }
   ],
   "logBinaries": [
