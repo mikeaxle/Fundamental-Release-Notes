@@ -26,11 +26,11 @@
           </div>
           <!-- version drop down -->
           <div class="versions__select">
-            <!--<div class="custom-select" data-widget="CustomSelect">-->
+            <div class="custom-select" data-widget="CustomSelect">
             <select name="filter-version" id="filter-version" v-model="currentRelease">
               <option v-for="r in json.releases" v-bind:value="r">{{ r.name }}</option>
             </select>
-            <!--</div>-->
+            </div>
           </div>
         </div>
 
@@ -43,17 +43,18 @@
             </label>
           </div>
           <div class="versions__select versions__select--combo">
-            <!--<div class="custom-select custom-select&#45;&#45;disabled" data-widget="CustomSelect">-->
-            <select name="filter-version-from" id="filter-version-from" disabled>
-              <option v-for="r in json.releases">{{ r.name }}</option>
-            </select>
-            <!--</div>-->
+            <div class="custom-select custom-select--disabled" data-widget="CustomSelect">
+              <select name="filter-version-from" id="filter-version-from" disabled>
+                <option v-for="r in json.releases">{{ r.name }}</option>
+              </select>
+            </div>
+
             <p class="versions__to">to</p>
-            <!--<div class="custom-select custom-select&#45;&#45;disabled" data-widget="CustomSelect">-->
-            <select name="filter-version-to" id="filter-version-to" disabled>
-              <option v-for="r in json.releases">{{ r.name }}</option>
-            </select>
-            <!--</div>-->
+            <div class="custom-select custom-select--disabled" data-widget="CustomSelect">
+              <select name="filter-version-to" id="filter-version-to" disabled>
+                <option v-for="r in json.releases">{{ r.name }}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -114,6 +115,7 @@
               <h2>{{ currentRelease.name }}</h2>
               <!-- types -->
               <div class="notes__section" v-for="t in json.types">
+
                 <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
 
@@ -121,26 +123,8 @@
                   <div class="notes__item" v-for="c in json.categories">
                     <div v-if="getCategories(c)">
                       <h4>{{ c.type }}</h4>
-                      <div class="notes__subitem">
                         <!-- logs -->
-                        <div class="notes__subitem-header" v-for="l in getLogs()">
-                          <div v-if="l.category === c.id">
-                            <p><strong>{{ l.title }}</strong> {{ l.desc }}</p>
-                            <a href="article.html" target="_blank" title="Opens in a new window"
-                               class="notes__subitem-launch">
-                              <span class="svg svg-new-window svg-new-window-dims"></span>
-                            </a>
-                            <a class="notes__subitem-open" data-toggle="#note-1" data-toggle-animate="true"><span
-                              class="svg svg-expand-down svg-expand-down-dims"></span></a>
-
-                            <!-- log content -->
-                            <div class="notes__subitem-content" id="note-1" v-for="l in json.logs">
-                              <div class="rte" v-html="l.solution">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        <log :logs="getLogs()" :category="c"></log>
                     </div>
                   </div>
                 </div>
@@ -164,10 +148,14 @@
     name: 'ReleaseNotes',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        feature: true,
+        enhancement: true,
+        resolvedIssue: true,
         json: json,
         currentRelease: null
       }
+    },
+    components: {
     },
     methods: {
       // function to check the types present in the current release logs
@@ -210,6 +198,16 @@
         }
 
         return logs
+      }
+    },
+    filters: {
+      feature: function (value, args) {
+        if (value === undefined) {
+          return null
+        }
+        value.filter.filters((v) => {
+          return v.type === 'feature'
+        })
       }
     }
   }

@@ -1,18 +1,18 @@
 $(function(){
-  "use strict";    
+  "use strict";
   initToggleShow();
   initCustomSelect();
 });
-  
-  
+
+
 function initToggleShow(){
   "use strict";
-  $('[data-toggle]').each(function(){ 
+  $('[data-toggle]').each(function(){
     var $toggle = $(this);
-    
+
     var toggleSpeed = '',
         toggleAnimate = '';
-    
+
     toggleSpeed = $toggle.data('toggle-speed');
     toggleAnimate = $toggle.data('toggle-animate');
 
@@ -20,22 +20,22 @@ function initToggleShow(){
     if(toggleSpeed === '') {toggleSpeed = 350;}
     if(toggleAnimate === '') {toggleAnimate = false;}
 
-    var $tar = $( $toggle.data('toggle') );       
+    var $tar = $( $toggle.data('toggle') );
     if( !$tar.hasClass('is-open') && !$tar.hasClass('is-active') ){
-      $tar.hide(); 
-    }     
+      $tar.hide();
+    }
 
     $toggle.click(function(e){
-      e.preventDefault();        
-      $toggle.toggleClass('is-active');     
-      
-       if(toggleAnimate){       
+      e.preventDefault();
+      $toggle.toggleClass('is-active');
+
+       if(toggleAnimate){
           $tar.slideToggle( toggleSpeed, function() {
-              $tar.toggleClass('is-open');              
-          });          
-        } else {        
+              $tar.toggleClass('is-open');
+          });
+        } else {
           $tar.toggle();
-          $tar.toggleClass('is-open');          
+          $tar.toggleClass('is-open');
         }
 
     });
@@ -59,7 +59,7 @@ function initCustomSelect(){
     var $val = $this.find('.custom-select__value');
 
     // set label
-    $val.text( $select.find(':selected').text() );    
+    $val.text( $select.find(':selected').text() );
     $select.change(function(){
       $val.text( $select.find(':selected').text() );
     });

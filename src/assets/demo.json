@@ -91,6 +91,18 @@
       "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
       "code": "",
       "isopen": false
+    },
+    {
+      "id": 4,
+      "release": 2,
+      "type": 2,
+      "category": 1,
+      "title": "46070",
+      "desc": "Another Sample title comes here",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
     }
   ],
   "logBinaries": [
