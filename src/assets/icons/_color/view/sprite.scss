@@ -1,0 +1,144 @@
+%svg-common {
+	background: url("svg/sprite.color.svg") no-repeat;
+}
+
+.svg-arrow-down {
+	@extend %svg-common;
+	background-position: 48.97959183673469% 72.72727272727273%;
+}
+
+.svg-arrow-down-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-arrow-right-grey {
+	@extend %svg-common;
+	background-position: 100% 0;
+}
+
+.svg-arrow-right-grey-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-arrow-right-white {
+	@extend %svg-common;
+	background-position: 73.46938775510205% 72.72727272727273%;
+}
+
+.svg-arrow-right-white-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-expand-down {
+	@extend %svg-common;
+	background-position: 24.489795918367346% 100%;
+}
+
+.svg-expand-down-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-expand-down-up {
+	@extend %svg-common;
+	background-position: 24.489795918367346% 72.72727272727273%;
+}
+
+.svg-expand-down-up-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-footer-mail-us {
+	@extend %svg-common;
+	background-position: 72.72727272727273% 0;
+}
+
+.svg-footer-mail-us-dims {
+	width: 34px;
+	height: 34px;
+}
+
+.svg-fundamental-icon {
+	@extend %svg-common;
+	background-position: 0 0;
+}
+
+.svg-fundamental-icon-dims {
+	width: 64px;
+	height: 64px;
+}
+
+.svg-new-window {
+	@extend %svg-common;
+	background-position: 0 72.72727272727273%;
+}
+
+.svg-new-window-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-raidio-check {
+	@extend %svg-common;
+	background-position: 100% 27.272727272727273%;
+}
+
+.svg-raidio-check-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-raidio-off {
+	@extend %svg-common;
+	background-position: 100% 54.54545454545455%;
+}
+
+.svg-raidio-off-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-raidio-on {
+	@extend %svg-common;
+	background-position: 0 100%;
+}
+
+.svg-raidio-on-dims {
+	width: 24px;
+	height: 24px;
+}
+
+.svg-search {
+	@extend %svg-common;
+	background-position: 92.45283018867924% 75%;
+}
+
+.svg-search-dims {
+	width: 16px;
+	height: 16px;
+}
+
+.svg-services-newsletter {
+	@extend %svg-common;
+	background-position: 69.56521739130434% 41.46341463414634%;
+}
+
+.svg-services-newsletter-dims {
+	width: 30px;
+	height: 30px;
+}
+
+.svg-up {
+	@extend %svg-common;
+	background-position: 48.97959183673469% 100%;
+}
+
+.svg-up-dims {
+	width: 24px;
+	height: 24px;
+}
+

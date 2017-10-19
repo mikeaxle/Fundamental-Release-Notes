@@ -1,0 +1,99 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "type": "Front office",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "type": "Middle office",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "type": "Back office",
+      "order": 3
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "type": "feature",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "type": "enhancement",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "type": "defect",
+      "order": 3
+    }
+  ],
+  "releases": [
+    {
+      "id": 1,
+      "name": "FPM Version 1",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name": "FPM Version 2",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "name": "FPM Version 3",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name": "FPM Version 4",
+      "order": 4
+    }
+  ],
+  "logs": [
+    {
+      "id": 1,
+      "release": 1,
+      "type": 1,
+      "category": 1,
+      "title": "46068",
+      "desc": "Asset Transfer out of Mutual funds",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Always uses the net opening Market Value</li><li>Exclude Management Fees = True</li><li>Gross closing Market Value is used if FeeBasis = Accrued</li></ul>",
+      "code": ""
+    },
+    {
+      "id": 2,
+      "release": 1,
+      "type": 1,
+      "category": 1,
+      "title": "46069",
+      "desc": "This is a sample log",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": ""
+    }
+  ],
+  "logBinaries": [
+    {
+      "id": 1,
+      "log": 1,
+      "desc": "",
+      "content": "",
+      "fileName": ""
+    },
+    {
+      "id": 2,
+      "log": 1,
+      "desc": "",
+      "content": "",
+      "fileName": ""
+    }
+  ]
+
+}
