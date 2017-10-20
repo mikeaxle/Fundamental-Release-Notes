@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Log from '@/components/Log.vue'
+import Vue2Filters from 'vue2-filters'
 
 Vue.component('log', Log)
+Vue.use(Vue2Filters)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

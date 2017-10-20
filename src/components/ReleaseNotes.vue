@@ -1,6 +1,5 @@
 <template>
   <div class="page-wrapper">
-
     <!-- header -->
     <header class="header">
       <div class="container">
@@ -66,43 +65,29 @@
 
         <div class="grid grid--sidebar">
           <div class="grid__col-1">
+
             <!-- type filters -->
             <div class="filter">
               <h5>Filter by type</h5>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="feature" name="type-filter-1" checked/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Feature</span>
-              </label>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="enhancement" name="type-filter-2"/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Enhancement</span>
-              </label>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="resolved" name="type-filter-3"/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Resolved Issue</span>
-              </label>
+              <div v-for="t in json.types">
+                <label class="checkbox checkbox--right">
+                  <input type="checkbox" v-bind:value="t" v-model="checkedFiltersTypes"/>
+                  <span class="checkbox__indi"></span>
+                  <span class="checkbox__label">{{ t.type }}</span>
+                </label>
+              </div>
             </div>
+
             <!-- category filters -->
             <div class="filter">
               <h5>Filter by category</h5>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="front" name="cat-filter-1" checked/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Front Office</span>
-              </label>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="middle" name="cat-filter-2"/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Middle Office</span>
-              </label>
-              <label class="checkbox checkbox--right">
-                <input type="checkbox" value="back" name="cat-filter-3"/>
-                <span class="checkbox__indi"></span>
-                <span class="checkbox__label">Back Office</span>
-              </label>
+              <div v-for="c in json.categories">
+                <label class="checkbox checkbox--right">
+                  <input type="checkbox" v-bind:value="c" v-model="checkedFiltersCategories"/>
+                  <span class="checkbox__indi"></span>
+                  <span class="checkbox__label">{{ c.type }}</span>
+                </label>
+              </div>
             </div>
 
 
@@ -124,7 +109,7 @@
                     <div v-if="getCategories(c)">
                       <h4>{{ c.type }}</h4>
                         <!-- logs -->
-                        <log :logs="getLogs()" :category="c"></log>
+                        <log :logs="filteredLogs" :category="c" :type="t"></log>
                     </div>
                   </div>
                 </div>
@@ -132,13 +117,12 @@
 
             </div>
           </div>
+
         </div>
-
-
       </div>
     </div>
-
   </div>
+
 </template>
 
 <script>
@@ -148,11 +132,10 @@
     name: 'ReleaseNotes',
     data () {
       return {
-        feature: true,
-        enhancement: true,
-        resolvedIssue: true,
         json: json,
-        currentRelease: null
+        currentRelease: null,
+        checkedFiltersTypes: [],
+        checkedFiltersCategories: []
       }
     },
     components: {
@@ -160,7 +143,7 @@
     methods: {
       // function to check the types present in the current release logs
       getTypes: function (type) {
-        let logs = this.getLogs()
+        let logs = this.filteredLogs
         let flag = false
         if (this.currentRelease !== null) {
           logs.forEach((l) => {
@@ -174,7 +157,7 @@
 
       // function to check the categories present in the current release logs
       getCategories: function (category) {
-        let logs = this.getLogs()
+        let logs = this.filteredLogs
         let flag = false
         if (this.currentRelease !== null) {
           logs.forEach((l) => {
@@ -196,18 +179,41 @@
             }
           })
         }
-
         return logs
       }
     },
-    filters: {
-      feature: function (value, args) {
-        if (value === undefined) {
-          return null
+    // function to filters logs
+    computed: {
+      filteredLogs: function () {
+        // get all logs under release
+        let result = this.getLogs()
+        // filter by type
+        if (this.checkedFiltersTypes.length > 0) {
+          result = result.filter((l) => {
+            let tmp
+            this.checkedFiltersTypes.forEach((t) => {
+              if (l.type === t.id) {
+                tmp = l
+              }
+            })
+            return tmp
+          })
         }
-        value.filter.filters((v) => {
-          return v.type === 'feature'
-        })
+        // filter by category
+        if (this.checkedFiltersCategories.length > 0) {
+          result = result.filter((l) => {
+            let tmp
+            this.checkedFiltersCategories.forEach((c) => {
+              if (l.category === c.id) {
+                tmp = l
+              }
+            })
+            return tmp
+          })
+        }
+        // return result
+        console.log(result)
+        return result
       }
     }
   }
