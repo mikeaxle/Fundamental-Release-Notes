@@ -5,9 +5,11 @@ import App from './App'
 import router from './router'
 import Log from '@/components/Log.vue'
 import Vue2Filters from 'vue2-filters'
+var SocialSharing = require('vue-social-sharing')
 
 Vue.component('log', Log)
 Vue.use(Vue2Filters)
+Vue.use(SocialSharing)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

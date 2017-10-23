@@ -7,10 +7,14 @@
             <p><strong>{{ l.title }}</strong> {{ l.desc }}</p>
 
             <!-- link to article page-->
-            <a href="article.html" target="_blank" title="Opens in a new window"
+       <!--     <a href="article.html" target="_blank" title="Opens in a new window"
                class="notes__subitem-launch">
               <span class="svg svg-new-window svg-new-window-dims"></span>
-            </a>
+            </a>-->
+            <router-link :to="{ name: 'article', params: { id: l.id }}" class="notes__subitem-launch">
+              <span class="svg svg-new-window svg-new-window-dims"></span>
+            </router-link>
+
             <!-- expand and contract buttons -->
             <a class="notes__subitem-open" @click="l.isopen = !l.isopen">
               <span v-if="l.isopen" class="svg svg-expand-down-up svg-expand-down-up-dims"></span>

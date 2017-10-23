@@ -18,14 +18,18 @@
         <div class="versions__row">
           <div class="versions__toggle">
             <label class="radio">
-              <input type="radio" checked value="1" id="toggle-changes" v-model="versionMode"/>
+              <input type="radio" id="toggle-changes" checked :value=1  v-model="versionMode" @change="modeToggle()"/>
               <span class="radio__indi"></span>
               <span class="radio__label">Changes and issues version</span>
             </label>
           </div>
           <!-- version drop down -->
           <div class="versions__select">
-            <div class="custom-select" data-widget="CustomSelect">
+            <div class="custom-select">
+              <div class="custom-select__arrow">
+                <span class="svg svg-arrow-down"></span>
+              </div>
+              <div class="custom-select__value">{{ currentRelease !== null ? currentRelease.name : 'Select Version' }}</div>
             <select name="filter-version" id="filter-version" v-model="currentRelease" :disabled="versionMode == 2 ? true : false">
               <option v-for="r in json.releases" v-bind:value="r">{{ r.name }}</option>
             </select>
@@ -35,20 +39,28 @@
         <div class="versions__row">
           <div class="versions__toggle">
             <label class="radio">
-              <input type="radio" value="2" v-model="versionMode" id="toggle-changes"/>
+              <input type="radio" id="toggle-changes" :value=2 v-model="versionMode"  @change="modeToggle()"/>
               <span class="radio__indi"></span>
               <span class="radio__label">Updating from version</span>
             </label>
           </div>
           <div class="versions__select versions__select--combo">
-            <div class="custom-select custom-select--disabled" data-widget="CustomSelect">
+            <div class="custom-select">
+              <div class="custom-select__arrow">
+                <span class="svg svg-arrow-down"></span>
+              </div>
+              <div class="custom-select__value">{{ fromRelease !== null ? fromRelease.name : 'Select Start Version' }}</div>
               <select name="filter-version-from" id="filter-version-from" v-model="fromRelease" :disabled="versionMode == 1 ? true : false">
                 <option v-for="r in filteredFromReleases" v-bind:value="r">{{ r.name }}</option>
               </select>
             </div>
 
             <p class="versions__to">to</p>
-            <div class="custom-select custom-select--disabled" data-widget="CustomSelect">
+            <div class="custom-select">
+              <div class="custom-select__arrow">
+                <span class="svg svg-arrow-down"></span>
+              </div>
+              <div class="custom-select__value">{{ toRelease !== null ? toRelease.name : 'Select End Version' }}</div>
               <select name="filter-version-to" id="filter-version-to" v-model="toRelease" :disabled="versionMode == 1 ? true : false">
                 <option v-for="r in filteredToReleases" v-bind:value="r">{{ r.name }}</option>
               </select>
@@ -99,15 +111,13 @@
               <h2>{{ currentRelease.name }}</h2>
               <!-- types -->
               <div class="notes__section" v-for="t in json.types">
-                <div v-if="getTypes(t, 'single')">
+                <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
                   <!-- category -->
-                  <div class="notes__item" v-for="c in json.categories">
-                    <div v-if="getCategories(c, 'single')">
+                  <div class="notes__item" v-for="c in json.categories" v-if="getCategories(c, t)">
                       <h4>{{ c.type }}</h4>
                         <!-- logs -->
-                        <log :logs="filteredLogs('single')" :category="c" :type="t"></log>
-                    </div>
+                        <log :logs="filteredLogs" :category="c" :type="t"></log>
                   </div>
                 </div>
               </div>
@@ -118,15 +128,13 @@
               <h2>Updating from {{ fromRelease.name }} to {{ toRelease.name }}</h2>
               <!-- types -->
               <div class="notes__section" v-for="t in json.types">
-                <div v-if="getTypes(t, 'multiple')">
+                <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
                   <!-- category -->
-                  <div class="notes__item" v-for="c in json.categories">
-                    <div v-if="getCategories(c, 'multiple')">
+                  <div class="notes__item" v-for="c in json.categories" v-if="getCategories(c,t)">
                       <h4>{{ c.type }}</h4>
                       <!-- logs -->
-                      <log :logs="filteredLogs('multiple')" :category="c" :type="t"></log>
-                    </div>
+                      <log :logs="filteredLogs" :category="c" :type="t"></log>
                   </div>
                 </div>
               </div>
@@ -141,6 +149,7 @@
 </template>
 
 <script>
+  // import axios from 'axios'
   import json from '../assets/demo.json'
 
   export default {
@@ -153,25 +162,52 @@
         toRelease: null,                // variable to store to release
         checkedFiltersTypes: [],        // array to store type filters
         checkedFiltersCategories: [],   // array to store category filters
-        versionMode: '1'
+        versionMode: 1
       }
     },
     components: {
     },
     methods: {
+      // function to toggle display modes
+      modeToggle: function () {
+        // if version mode is 1 null fromRelease and toRelease
+        if (this.versionMode === 1) {
+          this.fromRelease = null
+          this.toRelease = null
+        }
+        // if version mode is 2, null currentRelease
+        if (this.versionMode === 2) {
+          this.currentRelease = null
+        }
+      },
       // function to check the types present in the current release logs
-      getTypes: function (releaseType, type) {
+      getTypes: function (releaseType) {
         // get logs
-        let logs = this.filteredLogs(type)
+        let logs = this.filteredLogs
         // set flag to false
         let flag = false
-        // if current release is selected
-        if (this.currentRelease !== null) {
-          logs.forEach((l) => {
-            if (l.type === releaseType.id) {
-              flag = true
-            }
-          })
+        // check version mode is equal to single
+        if (this.versionMode === 1) {
+          // if current release is selected
+          if (this.currentRelease !== null) {
+            logs.forEach((l) => {
+              if (l.type === releaseType.id) {
+                flag = true
+              }
+            })
+          }
+        }
+        // check version mode is equal to multiple
+        if (this.versionMode === 2) {
+          // check if from release and to release are null
+          if (this.fromRelease !== null && this.toRelease !== null) {
+            // iterate logs
+            logs.forEach((l) => {
+              if (l.type === releaseType.id) {
+                flag = true
+              }
+            })
+          }
         }
         // return flag
         return flag
@@ -182,26 +218,41 @@
       // function to check the categories present in the current release logs
       getCategories: function (category, type) {
         // get logs
-        let logs = this.filteredLogs(type)
+        let logs = this.filteredLogs
         // set flag to false
         let flag = false
-        // if current release is selected
-        if (this.currentRelease !== null) {
-          logs.forEach((l) => {
-            if (l.category === category.id) {
-              flag = true
-            }
-          })
+        if (this.versionMode === 1) {
+          // if current release is selected
+          if (this.currentRelease !== null) {
+            logs.forEach((l) => {
+              if (l.category === category.id && l.type === type.id) {
+                flag = true
+              }
+            })
+          }
         }
+        // check version mode is equal to multiple
+        if (this.versionMode === 2) {
+          // check if from release and to release are null
+          if (this.fromRelease !== null && this.toRelease !== null) {
+            // iterate logs
+            logs.forEach((l) => {
+              if (l.category === category.id && l.type === type.id) {
+                flag = true
+              }
+            })
+          }
+        }
+
         // return flag
         return flag
       },
       // function to get the logs of the selected release
-      getLogs: function (type) {
+      getLogs: function () {
         // array to store logs
         let logs = []
         // if type is single
-        if (type === 'single') {
+        if (this.versionMode === 1) {
           // if current release is selected
           if (this.currentRelease !== null) {
             json.logs.forEach((l) => {
@@ -214,14 +265,14 @@
           }
         }
         // if type is multiple
-        if (type === 'multiple') {
+        if (this.versionMode === 2) {
           if (this.fromRelease !== null && this.toRelease !== null) {
             // get all releases between from and to and store in array
             let releases = []
             releases = this.json.releases.filter((r) => {
               let tmp
               // check if current releases is >= from release and <= toRelease
-              if (r.id >= this.fromRelease && r.id <= this.toRelease) {
+              if (r.id >= this.fromRelease.id && r.id <= this.toRelease.id) {
                 tmp = r
               }
               return tmp
@@ -239,16 +290,15 @@
             })
           }
         }
-
         // return logs array
         return logs
       }
     },
     computed: {
       // function to filters logs
-      filteredLogs: function (type) {
+      filteredLogs: function () {
         // get all logs under release
-        let result = this.getLogs(type)
+        let result = this.getLogs()
         // filter by type
         if (this.checkedFiltersTypes.length > 0) {
           result = result.filter((l) => {
