@@ -7,7 +7,7 @@
           <img src="../assets/images/fundamental-icon.svg" alt=""/>
           <h3>Release Notes</h3>
         </a>
-        <a href="#" class="btn btn--contact">Contact us</a>
+        <a href="http://www.fundamental.net/contact/" target="_blank" class="btn btn--contact">Contact us</a>
       </div>
     </header>
 
@@ -20,12 +20,12 @@
             <label class="radio">
               <input type="radio" id="toggle-changes" checked :value=1  v-model="versionMode" @change="modeToggle()"/>
               <span class="radio__indi"></span>
-              <span class="radio__label">Changes and issues version</span>
+              <span class="radio__label">Changes and issues in version</span>
             </label>
           </div>
           <!-- version drop down -->
           <div class="versions__select">
-            <div class="custom-select">
+            <div class="custom-select" v-bind:class="{'custom-select--disabled': versionMode === 2 }">
               <div class="custom-select__arrow">
                 <span class="svg svg-arrow-down"></span>
               </div>
@@ -45,7 +45,7 @@
             </label>
           </div>
           <div class="versions__select versions__select--combo">
-            <div class="custom-select">
+            <div class="custom-select" v-bind:class="{'custom-select--disabled': versionMode === 1 }">
               <div class="custom-select__arrow">
                 <span class="svg svg-arrow-down"></span>
               </div>
@@ -56,7 +56,7 @@
             </div>
 
             <p class="versions__to">to</p>
-            <div class="custom-select">
+            <div class="custom-select" v-bind:class="{'custom-select--disabled': versionMode === 1 }">
               <div class="custom-select__arrow">
                 <span class="svg svg-arrow-down"></span>
               </div>
@@ -108,7 +108,7 @@
           <div class="grid__col-2">
             <!-- notes from version selector -->
             <div class="notes" v-if="currentRelease !== null">
-              <h2>{{ currentRelease.name }}</h2>
+              <h2>Changes and issues in version {{ currentRelease.name }}</h2>
               <!-- types -->
               <div class="notes__section" v-for="t in json.types">
                 <div v-if="getTypes(t)">
@@ -125,7 +125,7 @@
 
             <!-- notes from version camparison -->
             <div class="notes" v-if="fromRelease !== null && toRelease !== null">
-              <h2>Updating from {{ fromRelease.name }} to {{ toRelease.name }}</h2>
+              <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
               <!-- types -->
               <div class="notes__section" v-for="t in json.types">
                 <div v-if="getTypes(t)">

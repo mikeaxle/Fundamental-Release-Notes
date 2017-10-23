@@ -15,9 +15,8 @@
 
         <ul class="breadcrumbs">
           <li><router-link to="/">Fundamental Release Notes</router-link></li>
-          <li style="color: #4a4c54 !important;">{{ getType('name') }}</li>
-          <!--<li><router-link :to="{ name: 'category', params: { category: getCategory('id'), type: getType('id'), release: getRelease('id')  }}">{{ getType('name') }}</router-link></li>-->
-          <li>{{ getCategory('name')  }}</li>
+          <li><router-link to="#">{{ getType() }}</router-link></li>
+          <!--<li>{{ getCategory()  }}</li>-->
         </ul>
 
 
@@ -31,28 +30,28 @@
 
             <!-- log details-->
             <div class="article__meta">
-              <h4>{{ getRelease('name') }}</h4>
+              <h4>{{ getRelease() }}</h4>
 
               <dl class="article__meta-details">
                 <dt>Module</dt>
-                <dd>{{ getCategory('name') }}</dd>
+                <!--<dd>{{ getCategory() }}</dd>-->
 
                 <dt>Ticket</dt>
-                <dd>{{ article.title }}</dd>
+                <!--<dd>{{ article.title }}</dd>-->
 
                 <dt>Date</dt>
                 <dd><time datetime="2017-09-19">19 September 2017</time></dd>
               </dl>
 
               <!-- share via email-->
-              <social-sharing
-                :url="$route.fullPath"
-                :title="article.desc"
-                inline-template>
-                <network network="email" class="article__meta-email">
-                  <span class="svg svg-footer-mail-us svg-footer-mail-us-dims"></span>Share via email
-                </network>
-              </social-sharing>
+              <!--<social-sharing-->
+                <!--:url="$route.fullPath"-->
+                <!--:title="article.desc"-->
+                <!--inline-template>-->
+                <!--<network network="email" class="article__meta-email">-->
+                  <!--<span class="svg svg-footer-mail-us svg-footer-mail-us-dims"></span>Share via email-->
+                <!--</network>-->
+              <!--</social-sharing>-->
 
             </div>
           </div>
@@ -60,10 +59,10 @@
 
             <!-- log content-->
             <article class="article__content">
-              <h1>{{ getCategory('name') }}: {{ article.desc }}</h1>
-              <div class="rte">
-                <p v-html="article.solution"></p>
-              </div>
+              <!--<h1>{{ getCategory() }}: {{ article.desc }}</h1>-->
+              <!--<div class="rte">-->
+                <!--<p v-html="article.solution"></p>-->
+              <!--</div>-->
 
             </article>
 
@@ -81,10 +80,10 @@
   // import axios from 'axios'
   import json from '../assets/demo.json'
   export default {
-    name: 'Article',
+    name: 'Category',
     data () {
       return {
-        article: {}
+        category: []
       }
     },
     created () {
@@ -97,49 +96,28 @@
       // function to load log data
       fetchData () {
         json.logs.forEach((l) => {
-          if (l.id === Number(this.$route.params.id)) {
-            this.article = l
+          if (l.category === this.$route.params.category && l.type === this.$route.params.type && l.release === this.$route.params.release) {
+            console.log(l)
+            this.category.push(l)
           }
         })
-      },
-      // function to get category
-      getCategory (field) {
-        let category
-        json.categories.forEach((c) => {
-          if (c.id === this.article.category) {
-            if (field === 'id') {
-              category = c.id
-            } else if (field === 'name') {
-              category = c.type
-            }
-          }
-        })
-        return category
       },
       // function to get type
-      getType (field) {
-        let type
+      getType () {
+        let type = ''
         json.types.forEach((t) => {
-          if (t.id === this.article.type) {
-            if (field === 'id') {
-              type = t.id
-            } else if (field === 'name') {
-              type = t.type
-            }
+          if (t.id === this.$route.params.type) {
+            type = t.type
           }
         })
         return type
       },
       // function to get release
-      getRelease (field) {
+      getRelease () {
         let release = ''
         json.releases.forEach((r) => {
-          if (r.id === this.article.release) {
-            if (field === 'id') {
-              release = r.id
-            } else if (field === 'name') {
-              release = r.name
-            }
+          if (r.id === this.$route.params.release) {
+            release = r.name
           }
         })
         return release

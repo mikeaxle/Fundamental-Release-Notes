@@ -19,39 +19,39 @@
   "types": [
     {
       "id": "typ001",
-      "type": "feature",
+      "type": "Feature",
       "order": 1
     },
     {
       "id": "typ002",
-      "type": "enhancement",
+      "type": "Enhancement",
       "order": 2
     },
     {
       "id": "typ003",
-      "type": "defect",
+      "type": "Resolved Issue",
       "order": 3
     }
   ],
   "releases": [
     {
       "id": 1,
-      "name": "FPM Version 1",
+      "name": "0.9",
       "order": 1
     },
     {
       "id": 2,
-      "name": "FPM Version 2",
+      "name": "1.0",
       "order": 2
     },
     {
       "id": 3,
-      "name": "FPM Version 3",
+      "name": "1.5",
       "order": 3
     },
     {
       "id": 4,
-      "name": "FPM Version 4",
+      "name": "1.6",
       "order": 4
     }
   ],
@@ -106,11 +106,83 @@
     },
     {
       "id": 5,
-      "release": 1,
+      "release": 2,
       "type": "typ001",
       "category": "cat003",
       "title": "46073",
       "desc": "Other random errors that occurred",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 6,
+      "release": 2,
+      "type": "typ002",
+      "category": "cat003",
+      "title": "46074",
+      "desc": "More sample data here",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 7,
+      "release": 2,
+      "type": "typ003",
+      "category": "cat002",
+      "title": "46075",
+      "desc": "Extra Sample data",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 8,
+      "release": 3,
+      "type": "typ001",
+      "category": "cat001",
+      "title": "46076",
+      "desc": "Also test data",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 9,
+      "release": 3,
+      "type": "typ001",
+      "category": "cat001",
+      "title": "46077",
+      "desc": "More secure logs will be placed",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 10,
+      "release": 4,
+      "type": "typ002",
+      "category": "cat002",
+      "title": "46078",
+      "desc": "Release 4 starting logs, test",
+      "url": "",
+      "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
+      "code": "",
+      "isopen": false
+    },
+    {
+      "id": 11,
+      "release": 4,
+      "type": "typ002",
+      "category": "cat003",
+      "title": "46079",
+      "desc": "Release 4 end logs",
       "url": "",
       "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Sample log 1</li><li>Sample log 2</li><li>Sample log 3</li></ul>",
       "code": "",
