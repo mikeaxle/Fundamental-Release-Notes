@@ -7,7 +7,7 @@
           <img src="../assets/images/fundamental-icon.svg" alt="" />
           <h3>Release Notes</h3>
         </router-link>
-        <a href="#" class="btn btn--contact">Contact us</a>
+        <a href="http://www.fundamental.net/contact" target="_blank" class="btn btn--contact">Contact us</a>
       </div>
     </header>
     <section class="subheader">
@@ -15,9 +15,9 @@
 
         <ul class="breadcrumbs">
           <li><router-link to="/">Fundamental Release Notes</router-link></li>
-          <li style="color: #4a4c54 !important;">{{ getType('name') }}</li>
+          <li style="color: #4a4c54 !important;">{{ getType('name') }} &nbsp; : &nbsp; {{ getCategory('name') }}</li>
           <!--<li><router-link :to="{ name: 'category', params: { category: getCategory('id'), type: getType('id'), release: getRelease('id')  }}">{{ getType('name') }}</router-link></li>-->
-          <li>{{ getCategory('name')  }}</li>
+          <!--<li>{{ getCategory('name')  }}</li>-->
         </ul>
 
 
@@ -49,8 +49,8 @@
                 :url="$route.fullPath"
                 :title="article.desc"
                 inline-template>
-                <network network="email" class="article__meta-email">
-                  <span class="svg svg-footer-mail-us svg-footer-mail-us-dims"></span>Share via email
+                <network network="email" class="article__meta-email" style="cursor: pointer !important;">
+                  <span class="svg svg-footer-mail-us svg-footer-mail-us-dims" ></span>Share via email
                 </network>
               </social-sharing>
 

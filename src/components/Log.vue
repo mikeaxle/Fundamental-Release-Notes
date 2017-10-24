@@ -4,16 +4,16 @@
         <div class="notes__subitem-header" v-for="l in logs" v-if="l.category === category.id &&  l.type === type.id" style="border-bottom: 1px solid #e0e0e0 !important;">
           <div>
             <!-- log category and description-->
-            <p><strong>{{ l.title }}</strong> {{ l.desc }}</p>
-
-            <!-- link to article page-->
-       <!--     <a href="article.html" target="_blank" title="Opens in a new window"
-               class="notes__subitem-launch">
-              <span class="svg svg-new-window svg-new-window-dims"></span>
-            </a>-->
-            <router-link :to="{ name: 'article', params: { id: l.id }}" class="notes__subitem-launch">
-              <span class="svg svg-new-window svg-new-window-dims"></span>
+            <router-link :to="{ name: 'article', params: { id: l.id }}" target="_blank">
+             <p><strong>{{ l.title }}</strong> {{ l.desc }}</p>
             </router-link>
+
+
+
+            <!-- open new window icon -->
+            <div class="notes__subitem-launch">
+              <router-link :to="{ name: 'article', params: { id: l.id }}" target="_blank" class="svg svg-new-window svg-new-window-dims"></router-link>
+            </div>
 
             <!-- expand and contract buttons -->
             <a class="notes__subitem-open" @click="l.isopen = !l.isopen">

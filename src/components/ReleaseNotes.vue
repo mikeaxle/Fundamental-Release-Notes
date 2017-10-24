@@ -100,12 +100,15 @@
                 </label>
               </div>
             </div>
-
-
           </div>
 
           <!-- release notes -->
           <div class="grid__col-2">
+
+            <div v-if="currentRelease === null && fromRelease === null && toRelease === null">
+              <h3>Please select a product version above.</h3>
+            </div>
+
             <!-- notes from version selector -->
             <div class="notes" v-if="currentRelease !== null">
               <h2>Changes and issues in version {{ currentRelease.name }}</h2>
@@ -114,11 +117,27 @@
                 <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
                   <!-- category -->
-                  <div class="notes__item" v-for="c in json.categories" v-if="getCategories(c, t)">
+                  <div class="notes__item" v-for="c in json.categories" >
+                    <div v-if="getCategories(c, t)">
                       <h4>{{ c.type }}</h4>
-                        <!-- logs -->
-                        <log :logs="filteredLogs" :category="c" :type="t"></log>
+                      <!-- logs -->
+                      <log :logs="filteredLogs" :category="c" :type="t"></log>
+                    </div>
                   </div>
+
+                </div>
+
+                <!-- if there are no types in release and check box is selected, this will show -->
+                <div v-if="getTypes(t) === false && checkIfTypeIsSelected(t.id) === true">
+                  <h3>{{ t.type }}</h3>
+                  There are no <b>{{ t.type }}</b> notes in version {{ currentRelease.name }}
+                  <!-- category -->
+                  <!--         <div class="notes__item" v-for="c in json.categories" >
+                    <div v-if="getCategories(c, t) === false && checkIfCategoryIsSelected(c.id) === true">
+                      <h4>{{ c.type }}</h4>
+                      There are no <b>{{ c.type }}</b> logs in version {{ currentRelease.name }}
+                    </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -292,6 +311,30 @@
         }
         // return logs array
         return logs
+      },
+      checkIfTypeIsSelected: function (id) {
+        let flag = false
+        if (this.checkedFiltersTypes.length > 0) {
+          this.checkedFiltersTypes.forEach((f) => {
+            if (id === f.id) {
+              flag = true
+            }
+          })
+        }
+        return flag
+      },
+      checkIfCategoryIsSelected: function (id) {
+        let flag = false
+        if (this.checkedFiltersCategories.length > 0) {
+          this.checkedFiltersCategories.forEach((f) => {
+            console.log(f.id + ' ' + id)
+            if (id === f.id) {
+              flag = true
+            }
+          })
+        }
+        console.log(flag)
+        return flag
       }
     },
     computed: {
@@ -324,6 +367,7 @@
           })
         }
         // return result
+        console.log(result)
         return result
       },
       filteredFromReleases: function () {
