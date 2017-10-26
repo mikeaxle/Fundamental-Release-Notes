@@ -46,8 +46,7 @@
 
               <!-- share via email-->
               <social-sharing
-                :url="$route.fullPath"
-                :title="article.desc"
+                :title="getCategory('name') + ': ' + article.desc"
                 inline-template>
                 <network network="email" class="article__meta-email" style="cursor: pointer !important;">
                   <span class="svg svg-footer-mail-us svg-footer-mail-us-dims" ></span>Share via email
@@ -84,7 +83,8 @@
     name: 'Article',
     data () {
       return {
-        article: {}
+        article: {},
+        email_body: null
       }
     },
     created () {
@@ -94,6 +94,16 @@
       '$route': 'fetchData'
     },
     methods: {
+      getEmailBody () {
+        return `
+            <article class="article__content">
+              <h1>{{ getCategory('name') }}: {{ article.desc }}</h1>
+              <div class="rte">
+                <p v-html="this.article.solution"></p>
+              </div>
+            </article>
+        `
+      },
       // function to load log data
       fetchData () {
         json.logs.forEach((l) => {
