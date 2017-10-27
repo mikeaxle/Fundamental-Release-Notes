@@ -25,7 +25,7 @@
     </section>
     <div class="page-content">
       <div class="container">
-
+{{ email_body }}
         <div class="grid grid--sidebar">
           <div class="grid__col-1">
 
@@ -46,6 +46,7 @@
 
               <!-- share via email-->
               <social-sharing
+                :url="email_body"
                 :title="getCategory('name') + ': ' + article.desc"
                 inline-template>
                 <network network="email" class="article__meta-email" style="cursor: pointer !important;">
@@ -84,7 +85,7 @@
     data () {
       return {
         article: {},
-        email_body: null
+        email_body: 'Hello, \n \n Please refer below to the latest Fundamental Release Notes.\n \n' + window.location.href
       }
     },
     created () {
