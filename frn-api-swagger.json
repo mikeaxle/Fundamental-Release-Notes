@@ -1,0 +1,2177 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "releasenotes",
+    "description": "API generated with [PHP-CRUD-API](https://github.com/mevdschee/php-crud-api)",
+    "version": "1.0.0"
+  },
+  "host": "www.fundamental.net",
+  "basePath": "/releasenotes/api.php",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "categories",
+      "description": ""
+    },
+    {
+      "name": "logBinaries",
+      "description": ""
+    },
+    {
+      "name": "logs",
+      "description": ""
+    },
+    {
+      "name": "releases",
+      "description": ""
+    },
+    {
+      "name": "types",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "List",
+        "parameters": [
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Column you want to sort on and the sort direction (comma separated). Example: id,desc",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number and page size (comma separated). NB: You cannot use \"page\" without \"order\"! Example: 1,10",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transform",
+            "in": "query",
+            "description": "Transform the records to object format. NB: This can also be done client-side in JavaScript!",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "columns",
+            "in": "query",
+            "description": "The table columns you want to retrieve (comma separated). Example: posts.*,categories.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter[]",
+            "in": "query",
+            "description": "Filters to be applied. Each filter consists of a column, an operator and a value (comma separated). Example: id,eq,1",
+            "required": false,
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "satisfy",
+            "in": "query",
+            "description": "Should all filters match (default)? Or any?",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of categories",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-referenced": [
+                          [
+                            "logs",
+                            "category"
+                          ]
+                        ],
+                        "x-primary-key": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 80
+                      },
+                      "ordering": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Item to create.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "category"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier of created item.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "category"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "category"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Increment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "category"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/logBinaries": {
+      "get": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "List",
+        "parameters": [
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Column you want to sort on and the sort direction (comma separated). Example: id,desc",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number and page size (comma separated). NB: You cannot use \"page\" without \"order\"! Example: 1,10",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transform",
+            "in": "query",
+            "description": "Transform the records to object format. NB: This can also be done client-side in JavaScript!",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "columns",
+            "in": "query",
+            "description": "The table columns you want to retrieve (comma separated). Example: posts.*,categories.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter[]",
+            "in": "query",
+            "description": "Filters to be applied. Each filter consists of a column, an operator and a value (comma separated). Example: id,eq,1",
+            "required": false,
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "satisfy",
+            "in": "query",
+            "description": "Should all filters match (default)? Or any?",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of logBinaries",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "logBinaries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-primary-key": true
+                      },
+                      "log": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-references": [
+                          "logs",
+                          "id"
+                        ]
+                      },
+                      "desc": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 400
+                      },
+                      "content": {
+                        "type": "string",
+                        "format": "byte",
+                        "x-dbtype": "blob",
+                        "x-nullable": false,
+                        "maxLength": 65535
+                      },
+                      "fileName": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 400
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Item to create.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "log",
+                "desc",
+                "content",
+                "fileName"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-primary-key": true
+                },
+                "log": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "logs",
+                    "id"
+                  ]
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "x-dbtype": "blob",
+                  "x-nullable": false,
+                  "maxLength": 65535
+                },
+                "fileName": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier of created item.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/logBinaries/{id}": {
+      "get": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-primary-key": true
+                },
+                "log": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "logs",
+                    "id"
+                  ]
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "x-dbtype": "blob",
+                  "x-nullable": false,
+                  "maxLength": 65535
+                },
+                "fileName": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "log",
+                "desc",
+                "content",
+                "fileName"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-primary-key": true
+                },
+                "log": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "logs",
+                    "id"
+                  ]
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "x-dbtype": "blob",
+                  "x-nullable": false,
+                  "maxLength": 65535
+                },
+                "fileName": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "logBinaries"
+        ],
+        "summary": "Increment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "log",
+                "desc",
+                "content",
+                "fileName"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-primary-key": true
+                },
+                "log": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "logs",
+                    "id"
+                  ]
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "x-dbtype": "blob",
+                  "x-nullable": false,
+                  "maxLength": 65535
+                },
+                "fileName": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 400
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/logs": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "List",
+        "parameters": [
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Column you want to sort on and the sort direction (comma separated). Example: id,desc",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number and page size (comma separated). NB: You cannot use \"page\" without \"order\"! Example: 1,10",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transform",
+            "in": "query",
+            "description": "Transform the records to object format. NB: This can also be done client-side in JavaScript!",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "columns",
+            "in": "query",
+            "description": "The table columns you want to retrieve (comma separated). Example: posts.*,categories.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter[]",
+            "in": "query",
+            "description": "Filters to be applied. Each filter consists of a column, an operator and a value (comma separated). Example: id,eq,1",
+            "required": false,
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "satisfy",
+            "in": "query",
+            "description": "Should all filters match (default)? Or any?",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of logs",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "logs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-referenced": [
+                          [
+                            "logBinaries",
+                            "log"
+                          ]
+                        ],
+                        "x-primary-key": true
+                      },
+                      "release": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-references": [
+                          "releases",
+                          "id"
+                        ]
+                      },
+                      "type": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-references": [
+                          "types",
+                          "id"
+                        ]
+                      },
+                      "category": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-references": [
+                          "categories",
+                          "id"
+                        ]
+                      },
+                      "title": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 100
+                      },
+                      "desc": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 2000
+                      },
+                      "solution": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 2000
+                      },
+                      "code": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 100
+                      },
+                      "isOpen": {
+                        "type": "integer",
+                        "x-dbtype": "tinyint",
+                        "x-nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Item to create.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "release",
+                "type",
+                "category",
+                "title",
+                "desc",
+                "solution",
+                "code",
+                "isOpen"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logBinaries",
+                      "log"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "release": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "releases",
+                    "id"
+                  ]
+                },
+                "type": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "types",
+                    "id"
+                  ]
+                },
+                "category": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "categories",
+                    "id"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "solution": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "code": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "isOpen": {
+                  "type": "integer",
+                  "x-dbtype": "tinyint",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier of created item.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/logs/{id}": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logBinaries",
+                      "log"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "release": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "releases",
+                    "id"
+                  ]
+                },
+                "type": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "types",
+                    "id"
+                  ]
+                },
+                "category": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "categories",
+                    "id"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "solution": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "code": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "isOpen": {
+                  "type": "integer",
+                  "x-dbtype": "tinyint",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "release",
+                "type",
+                "category",
+                "title",
+                "desc",
+                "solution",
+                "code",
+                "isOpen"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logBinaries",
+                      "log"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "release": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "releases",
+                    "id"
+                  ]
+                },
+                "type": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "types",
+                    "id"
+                  ]
+                },
+                "category": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "categories",
+                    "id"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "solution": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "code": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "isOpen": {
+                  "type": "integer",
+                  "x-dbtype": "tinyint",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Increment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "release",
+                "type",
+                "category",
+                "title",
+                "desc",
+                "solution",
+                "code",
+                "isOpen"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logBinaries",
+                      "log"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "release": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "releases",
+                    "id"
+                  ]
+                },
+                "type": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "types",
+                    "id"
+                  ]
+                },
+                "category": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-references": [
+                    "categories",
+                    "id"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "desc": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "solution": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 2000
+                },
+                "code": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 100
+                },
+                "isOpen": {
+                  "type": "integer",
+                  "x-dbtype": "tinyint",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/releases": {
+      "get": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "List",
+        "parameters": [
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Column you want to sort on and the sort direction (comma separated). Example: id,desc",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number and page size (comma separated). NB: You cannot use \"page\" without \"order\"! Example: 1,10",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transform",
+            "in": "query",
+            "description": "Transform the records to object format. NB: This can also be done client-side in JavaScript!",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "columns",
+            "in": "query",
+            "description": "The table columns you want to retrieve (comma separated). Example: posts.*,categories.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter[]",
+            "in": "query",
+            "description": "Filters to be applied. Each filter consists of a column, an operator and a value (comma separated). Example: id,eq,1",
+            "required": false,
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "satisfy",
+            "in": "query",
+            "description": "Should all filters match (default)? Or any?",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of releases",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "releases": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-referenced": [
+                          [
+                            "logs",
+                            "release"
+                          ]
+                        ],
+                        "x-primary-key": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 80
+                      },
+                      "ordering": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Item to create.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "release"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "name": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier of created item.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/releases/{id}": {
+      "get": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "release"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "name": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "release"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "name": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Increment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "release"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "name": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/types": {
+      "get": {
+        "tags": [
+          "types"
+        ],
+        "summary": "List",
+        "parameters": [
+          {
+            "name": "exclude",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "One or more related entities (comma separated).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Column you want to sort on and the sort direction (comma separated). Example: id,desc",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number and page size (comma separated). NB: You cannot use \"page\" without \"order\"! Example: 1,10",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transform",
+            "in": "query",
+            "description": "Transform the records to object format. NB: This can also be done client-side in JavaScript!",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "columns",
+            "in": "query",
+            "description": "The table columns you want to retrieve (comma separated). Example: posts.*,categories.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "filter[]",
+            "in": "query",
+            "description": "Filters to be applied. Each filter consists of a column, an operator and a value (comma separated). Example: id,eq,1",
+            "required": false,
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "satisfy",
+            "in": "query",
+            "description": "Should all filters match (default)? Or any?",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of types",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "types": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false,
+                        "x-referenced": [
+                          [
+                            "logs",
+                            "type"
+                          ]
+                        ],
+                        "x-primary-key": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "x-dbtype": "varchar",
+                        "x-nullable": false,
+                        "maxLength": 80
+                      },
+                      "ordering": {
+                        "type": "integer",
+                        "x-dbtype": "int",
+                        "x-nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "types"
+        ],
+        "summary": "Create",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Item to create.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "type"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Identifier of created item.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/types/{id}": {
+      "get": {
+        "tags": [
+          "types"
+        ],
+        "summary": "Read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested item.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "type"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "types"
+        ],
+        "summary": "Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "type"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "types"
+        ],
+        "summary": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "types"
+        ],
+        "summary": "Increment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier for item.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "description": "Properties of item to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "ordering"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false,
+                  "x-referenced": [
+                    [
+                      "logs",
+                      "type"
+                    ]
+                  ],
+                  "x-primary-key": true
+                },
+                "type": {
+                  "type": "string",
+                  "x-dbtype": "varchar",
+                  "x-nullable": false,
+                  "maxLength": 80
+                },
+                "ordering": {
+                  "type": "integer",
+                  "x-dbtype": "int",
+                  "x-nullable": false
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Number of affected rows.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

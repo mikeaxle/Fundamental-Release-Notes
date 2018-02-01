@@ -78,12 +78,16 @@
 
 <script>
   // import axios from 'axios'
-  import json from '../assets/demo.json'
+  import { HTTP } from '../http-common'
   export default {
     name: 'Category',
     data () {
       return {
-        category: []
+        categories: [],
+        types: [],
+        releases: [],
+        logs: [],
+        logBinaries: []
       }
     },
     created () {
@@ -95,7 +99,40 @@
     methods: {
       // function to load log data
       fetchData () {
-        json.logs.forEach((l) => {
+        // http calls
+        // get categories
+        HTTP.get('categories?transform=1')
+          .then((res) => {
+            this.categories = res.data.categories
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get types
+        HTTP.get('types?transform=1')
+          .then((res) => {
+            this.types = res.data.types
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get releases
+        HTTP.get('releases?transform=1')
+          .then((res) => {
+            this.releases = res.data.releases
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get logBinaries
+        HTTP.get('logBinaries?transform=1')
+          .then((res) => {
+            this.logBinaries = res.data.logBinaries
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        this.logs.forEach((l) => {
           if (l.category === this.$route.params.category && l.type === this.$route.params.type && l.release === this.$route.params.release) {
             console.log(l)
             this.category.push(l)
@@ -105,7 +142,7 @@
       // function to get type
       getType () {
         let type = ''
-        json.types.forEach((t) => {
+        this.types.forEach((t) => {
           if (t.id === this.$route.params.type) {
             type = t.type
           }
@@ -115,7 +152,7 @@
       // function to get release
       getRelease () {
         let release = ''
-        json.releases.forEach((r) => {
+        this.releases.forEach((r) => {
           if (r.id === this.$route.params.release) {
             release = r.name
           }

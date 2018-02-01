@@ -63,7 +63,6 @@
       "category": "cat001",
       "title": "46068",
       "desc": "Asset Transfer out of Mutual funds",
-      "url": "",
       "solution": "The sub-period TWRR formula has been updated with the following changes<br><ul><li>Always uses the net opening Market Value</li><li>Exclude Management Fees = True</li><li>Gross closing Market Value is used if FeeBasis = Accrued</li></ul>",
       "code": "",
       "isopen": false

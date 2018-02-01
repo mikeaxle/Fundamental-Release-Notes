@@ -16,14 +16,14 @@
             </div>
 
             <!-- expand and contract buttons -->
-            <a class="notes__subitem-open" @click="l.isopen = !l.isopen">
-              <span v-if="l.isopen" class="svg svg-expand-down-up svg-expand-down-up-dims"></span>
-              <span v-else="l.isopen" class="svg svg-expand-down svg-expand-down-dims"></span>
+            <a class="notes__subitem-open" @click="openClose(l)">
+              <span v-if="l.isopen === 1" class="svg svg-expand-down-up svg-expand-down-up-dims"></span>
+              <span v-if="l.isopen === 0" class="svg svg-expand-down svg-expand-down-dims"></span>
             </a>
 
             <!-- log content -->
             <transition v-on:enter="enter" v-on:leave="leave">
-              <div class="notes__subitem-content item" id="note-1" v-show="l.isopen">
+              <div class="notes__subitem-content item" id="note-1" v-show="l.isopen === 1">
                 <div class="rte" v-html="l.solution"></div>
               </div>
             </transition>
@@ -36,6 +36,7 @@
 
 <script>
   import Velocity from 'velocity'
+  import { HTTP } from '../http-common'
   export default {
     name: 'Log',
     props: ['logs', 'category', 'type'],
@@ -45,6 +46,20 @@
       }
     },
     methods: {
+      openClose (l) {
+        if (l.isopen === 0) {
+          l.isopen = 1
+        } else {
+          l.isopen = 0
+        }
+        HTTP.put(`logs/${l.id}`, l)
+          .then((res) => {
+            console.log('log opened')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      },
       beforeEnter: function (el) {
         el.style.opacity = 0
       },

@@ -31,7 +31,7 @@
               </div>
               <div class="custom-select__value">{{ currentRelease !== null ? currentRelease.name : 'Select Version' }}</div>
             <select name="filter-version" id="filter-version" v-model="currentRelease" :disabled="versionMode == 2 ? true : false">
-              <option v-for="r in json.releases" v-bind:value="r">{{ r.name }}</option>
+              <option v-for="r in releases" v-bind:value="r">{{ r.name }}</option>
             </select>
             </div>
           </div>
@@ -80,7 +80,7 @@
             <!-- type filters -->
             <div class="filter">
               <h5>Filter by type</h5>
-              <div v-for="t in json.types">
+              <div v-for="t in types">
                 <label class="checkbox checkbox--right">
                   <input type="checkbox" v-bind:value="t" v-model="checkedFiltersTypes"/>
                   <span class="checkbox__indi"></span>
@@ -92,7 +92,7 @@
             <!-- category filters -->
             <div class="filter">
               <h5>Filter by category</h5>
-              <div v-for="c in json.categories">
+              <div v-for="c in categories">
                 <label class="checkbox checkbox--right">
                   <input type="checkbox" v-bind:value="c" v-model="checkedFiltersCategories"/>
                   <span class="checkbox__indi"></span>
@@ -113,11 +113,11 @@
             <div class="notes" v-if="currentRelease !== null">
               <h2>Changes and issues in version {{ currentRelease.name }}</h2>
               <!-- types -->
-              <div class="notes__section" v-for="t in json.types">
+              <div class="notes__section" v-for="t in types">
                 <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
                   <!-- category -->
-                  <div class="notes__item" v-for="c in json.categories" >
+                  <div class="notes__item" v-for="c in categories" >
                     <div v-if="getCategories(c, t)">
                       <h4>{{ c.type }}</h4>
                       <!-- logs -->
@@ -132,7 +132,7 @@
                   <h3>{{ t.type }}</h3>
                   There are no <b>{{ t.type }}</b> notes in version {{ currentRelease.name }}
                   <!-- category -->
-                  <!--         <div class="notes__item" v-for="c in json.categories" >
+                  <!--         <div class="notes__item" v-for="c in categories" >
                     <div v-if="getCategories(c, t) === false && checkIfCategoryIsSelected(c.id) === true">
                       <h4>{{ c.type }}</h4>
                       There are no <b>{{ c.type }}</b> logs in version {{ currentRelease.name }}
@@ -146,11 +146,11 @@
             <div class="notes" v-if="fromRelease !== null && toRelease !== null">
               <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
               <!-- types -->
-              <div class="notes__section" v-for="t in json.types">
+              <div class="notes__section" v-for="t in types">
                 <div v-if="getTypes(t)">
                   <h3>{{ t.type }}</h3>
                   <!-- category -->
-                  <div class="notes__item" v-for="c in json.categories" v-if="getCategories(c,t)">
+                  <div class="notes__item" v-for="c in categories" v-if="getCategories(c,t)">
                       <h4>{{ c.type }}</h4>
                       <!-- logs -->
                       <log :logs="filteredLogs" :category="c" :type="t"></log>
@@ -168,14 +168,17 @@
 </template>
 
 <script>
-  // import axios from 'axios'
-  import json from '../assets/demo.json'
+  import { HTTP } from '../http-common'
 
   export default {
     name: 'ReleaseNotes',
     data () {
       return {
-        json: json,                     // variable to store json object parsed from MYSQL
+        categories: [],
+        types: [],
+        releases: [],
+        logs: [],
+        logBinaries: [],
         currentRelease: null,           // variable to store currently selected release
         fromRelease: null,              // variable to store from release
         toRelease: null,                // variable to store to release
@@ -184,9 +187,46 @@
         versionMode: 1
       }
     },
+    created () {
+      this.init()
+    },
     components: {
     },
     methods: {
+      init () {
+        // get categories
+        HTTP.get('categories?transform=1')
+          .then((res) => {
+            this.categories = res.data.categories
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get types
+        HTTP.get('types?transform=1')
+          .then((res) => {
+            this.types = res.data.types
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get releases
+        HTTP.get('releases?transform=1')
+          .then((res) => {
+            this.releases = res.data.releases
+          })
+          .catch((err) => {
+            alert(err)
+          })
+        // get logBinaries
+        HTTP.get('logBinaries?transform=1')
+          .then((res) => {
+            this.logBinaries = res.data.logBinaries
+          })
+          .catch((err) => {
+            alert(err)
+          })
+      },
       // function to toggle display modes
       modeToggle: function () {
         // if version mode is 1 null fromRelease and toRelease
@@ -268,13 +308,24 @@
       },
       // function to get the logs of the selected release
       getLogs: function () {
+        // get logs
+        HTTP.get('logs?transform=1')
+          .then((res) => {
+            this.logs = res.data.logs
+            // this.logs.forEach(l => {
+            //   l.isopen = true
+            // })
+          })
+          .catch((err) => {
+            alert(err)
+          })
         // array to store logs
         let logs = []
         // if type is single
         if (this.versionMode === 1) {
           // if current release is selected
           if (this.currentRelease !== null) {
-            json.logs.forEach((l) => {
+            this.logs.forEach((l) => {
               // get all logs where release id ===  current selected release id
               if (l.release === this.currentRelease.id) {
                 // push to array
@@ -288,7 +339,7 @@
           if (this.fromRelease !== null && this.toRelease !== null) {
             // get all releases between from and to and store in array
             let releases = []
-            releases = this.json.releases.filter((r) => {
+            releases = this.releases.filter((r) => {
               let tmp
               // check if current releases is >= from release and <= toRelease
               if (r.id >= this.fromRelease.id && r.id <= this.toRelease.id) {
@@ -297,7 +348,7 @@
               return tmp
             })
             // iterate logs array
-            json.logs.forEach((l) => {
+            this.logs.forEach((l) => {
               // iterate releases array
               // get all logs where release id === the ids of the items in releases array
               releases.forEach((r) => {
@@ -367,15 +418,14 @@
           })
         }
         // return result
-        console.log(result)
         return result
       },
       filteredFromReleases: function () {
         let result = []
         // filter out last result
-        result = this.json.releases.filter((r, i) => {
+        result = this.releases.filter((r, i) => {
           let tmp
-          if (i < this.json.releases.length - 1) {
+          if (i < this.releases.length - 1) {
             tmp = r
           }
           return tmp
@@ -386,7 +436,7 @@
         let result = []
         // filter by release id
         if (this.fromRelease !== null) {
-          result = this.json.releases.filter((r) => {
+          result = this.releases.filter((r) => {
             let tmp
             if (this.fromRelease.id < r.id) {
               tmp = r

@@ -25,7 +25,6 @@
     </section>
     <div class="page-content">
       <div class="container">
-{{ email_body }}
         <div class="grid grid--sidebar">
           <div class="grid__col-1">
 
