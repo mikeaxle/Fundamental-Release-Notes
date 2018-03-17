@@ -111,7 +111,12 @@
 
             <!-- notes from version selector -->
             <div class="notes" v-if="currentRelease !== null">
-              <h2>Changes and issues in version {{ currentRelease.name }}</h2>
+              <div style="display: flex; flex-direction: row;">
+                <h2>Changes and issues in version {{ currentRelease.name }}</h2>
+                <span @click="downloadPdf()">DOwnload PDF</span>
+                <span>DOwnload CSV</span>
+              </div>
+
               <!-- types -->
               <div class="notes__section" v-for="t in types">
                 <div v-if="getTypes(t)">
@@ -169,7 +174,7 @@
 
 <script>
   import { HTTP } from '../http-common'
-
+  // import { saveAs } from 'file-saver/FileSaver'
   export default {
     name: 'ReleaseNotes',
     data () {
@@ -184,7 +189,8 @@
         toRelease: null,                // variable to store to release
         checkedFiltersTypes: [],        // array to store type filters
         checkedFiltersCategories: [],   // array to store category filters
-        versionMode: 1
+        versionMode: 1,
+        html: ''
       }
     },
     created () {
@@ -193,6 +199,168 @@
     components: {
     },
     methods: {
+      createHtml () {
+        this.html = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
+        body {
+            color: #4a4c54;
+            font-weight: normal;
+            line-height: 1.33;
+            letter-spacing: normal;
+            text-align: left;
+            font-family: Poppins;
+        }
+
+        header {
+            height: 50;
+            background-color: #4a4c54;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 34px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.21;
+            margin: 0px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1;
+            letter-spacing: 0.2px;
+            margin: 0px;
+        }
+
+        h3 {
+            font-size: 12px;
+            line-height: 1;
+            letter-spacing: normal;
+            font-weight: 600;
+            margin: 0px;
+        }
+
+        ul {
+            line-height: 1.33 !important;
+            list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='#ff0000' /%3E%3C/svg%3E");
+        }
+
+        .line {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width: 100%;
+            height: 1px;
+            background-color: #dfdfdf;
+            border: solid 1px #dfdfdf;
+        }
+
+        .content {
+            width: 100%;
+            padding: 40px 35px;
+
+        }
+
+        .type {
+            padding-top: 20px;
+        }
+
+        .category {
+            padding-top: 21px
+        }
+
+        .log {
+            font-size: 9px;
+            font-weight: 400;
+            line-height: 1.33;
+        }
+
+        .log span {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="assets/fundamental-white.svg" height="24.5">
+        <span>
+            Release Notes
+        </span>
+    </header>
+    <div class="content">
+        <!-- heading -->
+        <h1>Changes and issues in version 0.9</h1>
+        <!-- each item is meant to be put through an array to generate release notes -->
+        <!-- type -->
+        <div class="type">
+            <h2>Feature</h2>
+
+            <!-- category -->
+            <div class="category">
+                <h3>Front Office</h3>
+                <div class="line"></div>
+
+                <!-- log -->
+                <div class="log">
+                    <!--  log title & desc -->
+                    <p><span>46068</span> Assets Transfer out of Mutual funds</p>
+
+                    <!-- solution -->
+                    The sub-period TWRR formula has been updated with the following changes
+                    <br>
+                    <ul>
+                        <li>Sample log 1</li>
+                        <li>Sample log 2</li>
+                        <li>Sample log 3</li>
+                    </ul>
+                </div>
+                <div class="line" style="margin-top: 40px !important;"></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>`
+      },
+      downloadPdf () {
+        // call function to create HTML
+        this.createHtml()
+        console.log(this.html)
+        // make call to API
+        // fetch('http://localhost:3000/print-pdf', {
+        //   method: 'post',
+        //   headers: {'Content-Type': 'application/json'},
+        //   body: JSON.stringify({
+        //     html: this.html
+        //   })
+        // })
+        // .then((res) => {
+        //   // convert response to array buffer
+        //   return res.arrayBuffer()
+        // })
+        // .then((data) => {
+        //   // create and download pdf file
+        //   const file = new Blob([data], {type: 'application/pdf'})
+        //   saveAs(file, `release notes - ${Date.now()} .pdf`)
+        // }, (err) => {
+        //   console.log(err)
+        // })
+      },
       init () {
         // get categories
         HTTP.get('categories?transform=1')
