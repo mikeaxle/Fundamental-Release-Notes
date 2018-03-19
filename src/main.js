@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import Log from '@/components/Log.vue'
 import Vue2Filters from 'vue2-filters'
+import JsonExcel from 'vue-json-excel'
 
-var SocialSharing = require('vue-social-sharing')
+const SocialSharing = require('vue-social-sharing')
 
 Vue.component('log', Log)
+Vue.component('downloadExcel', JsonExcel)
 Vue.use(Vue2Filters)
 Vue.use(SocialSharing)
 Vue.config.productionTip = false

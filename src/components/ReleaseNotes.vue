@@ -114,7 +114,15 @@
               <div style="display: flex; flex-direction: row;">
                 <h2>Changes and issues in version {{ currentRelease.name }}</h2>
                 <span @click="downloadPdf()">DOwnload PDF</span>
-                <span>DOwnload CSV</span>
+                <download-excel
+                  class   = "btn btn-default"
+                  :data   = "filteredLogs"
+                  :fields = "json_fields"
+                  name    = "filename.xls">
+
+                  Download Excel
+
+                </download-excel>
               </div>
 
               <!-- types -->
@@ -187,7 +195,15 @@
         checkedFiltersTypes: [],        // array to store type filters
         checkedFiltersCategories: [],   // array to store category filters
         versionMode: 1,
-        html: ''
+        html: '',
+        json_fields: {
+          'Release': 'release',
+          'Category': 'category',
+          'Type': 'type',
+          'Title': 'title',
+          'Description': 'desc',
+          'Solution': 'solution'
+        }
       }
     },
     created () {
@@ -196,6 +212,17 @@
     components: {
     },
     methods: {
+      getFieldName (id, field) {
+        let name = ''
+        if (field === 'types') {
+          let tmp = this.types.find((type) => {
+            return type.id === id
+          })
+          name = tmp.type
+          console.log(name)
+        }
+        return name
+      },
       createHtml () {
         this.html = `<!DOCTYPE html>
 <html lang="en">
@@ -349,7 +376,7 @@ header img {
           })
       },
       // function to toggle display modes
-      modeToggle: function () {
+      modeToggle () {
         // if version mode is 1 null fromRelease and toRelease
         if (this.versionMode === 1) {
           this.fromRelease = null
@@ -361,7 +388,7 @@ header img {
         }
       },
       // function to check the types present in the current release logs
-      getTypes: function (releaseType) {
+      getTypes (releaseType) {
         // get logs
         let logs = this.filteredLogs
         // set flag to false
@@ -396,7 +423,7 @@ header img {
       getTypesComparison: function () {
       },
       // function to check the categories present in the current release logs
-      getCategories: function (category, type) {
+      getCategories (category, type) {
         // get logs
         let logs = this.filteredLogs
         // set flag to false
@@ -428,7 +455,7 @@ header img {
         return flag
       },
       // function to get the logs of the selected release
-      getLogs: function () {
+      getLogs () {
         // get logs
         HTTP.get('logs?transform=1')
           .then((res) => {
@@ -484,7 +511,7 @@ header img {
         // return logs array
         return logs
       },
-      checkIfTypeIsSelected: function (id) {
+      checkIfTypeIsSelected (id) {
         let flag = false
         if (this.checkedFiltersTypes.length > 0) {
           this.checkedFiltersTypes.forEach((f) => {
@@ -495,7 +522,7 @@ header img {
         }
         return flag
       },
-      checkIfCategoryIsSelected: function (id) {
+      checkIfCategoryIsSelected (id) {
         let flag = false
         if (this.checkedFiltersCategories.length > 0) {
           this.checkedFiltersCategories.forEach((f) => {
@@ -511,7 +538,7 @@ header img {
     },
     computed: {
       // function to filters logs
-      filteredLogs: function () {
+      filteredLogs () {
         // get all logs under release
         let result = this.getLogs()
         // filter by type
@@ -541,7 +568,7 @@ header img {
         // return result
         return result
       },
-      filteredFromReleases: function () {
+      filteredFromReleases () {
         let result = []
         // filter out last result
         result = this.releases.filter((r, i) => {
@@ -553,7 +580,7 @@ header img {
         })
         return result
       },
-      filteredToReleases: function () {
+      filteredToReleases () {
         let result = []
         // filter by release id
         if (this.fromRelease !== null) {
