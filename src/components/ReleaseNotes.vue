@@ -136,20 +136,17 @@
                 <div v-if="getTypes(t) === false && checkIfTypeIsSelected(t.id) === true">
                   <h3>{{ t.type }}</h3>
                   There are no <b>{{ t.type }}</b> notes in version {{ currentRelease.name }}
-                  <!-- category -->
-                  <!--         <div class="notes__item" v-for="c in categories" >
-                    <div v-if="getCategories(c, t) === false && checkIfCategoryIsSelected(c.id) === true">
-                      <h4>{{ c.type }}</h4>
-                      There are no <b>{{ c.type }}</b> logs in version {{ currentRelease.name }}
-                    </div>
-                  </div>-->
                 </div>
               </div>
             </div>
 
             <!-- notes from version camparison -->
             <div class="notes" v-if="fromRelease !== null && toRelease !== null">
-              <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
+              <div style="display: flex; flex-direction: row;">
+                <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
+                <span @click="downloadPdf()">DOwnload PDF</span>
+                <span>DOwnload CSV</span>
+              </div>
               <!-- types -->
               <div class="notes__section" v-for="t in types">
                 <div v-if="getTypes(t)">
@@ -174,7 +171,7 @@
 
 <script>
   import { HTTP } from '../http-common'
-  // import { saveAs } from 'file-saver/FileSaver'
+  import { saveAs } from 'file-saver/FileSaver'
   export default {
     name: 'ReleaseNotes',
     data () {
@@ -207,159 +204,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="assets/styles.css">
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
-        body {
-            color: #4a4c54;
-            font-weight: normal;
-            line-height: 1.33;
-            letter-spacing: normal;
-            text-align: left;
-            font-family: Poppins;
-        }
+      @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
+      header {
+    background-color: #4a4c54;
+    padding: 13px 34px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    font-family:Poppins;
+}
 
-        header {
-            height: 50;
-            background-color: #4a4c54;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 13px 34px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 600;
-            line-height: 1.21;
-            margin: 0px;
-        }
-
-        h2 {
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: 0.2px;
-            margin: 0px;
-        }
-
-        h3 {
-            font-size: 12px;
-            line-height: 1;
-            letter-spacing: normal;
-            font-weight: 600;
-            margin: 0px;
-        }
-
-        ul {
-            line-height: 1.33 !important;
-            list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='#ff0000' /%3E%3C/svg%3E");
-        }
-
-        .line {
-            margin-top: 15px;
-            margin-bottom: 15px;
-            width: 100%;
-            height: 1px;
-            background-color: #dfdfdf;
-            border: solid 1px #dfdfdf;
-        }
-
-        .content {
-            width: 100%;
-            padding: 40px 35px;
-
-        }
-
-        .type {
-            padding-top: 20px;
-        }
-
-        .category {
-            padding-top: 21px
-        }
-
-        .log {
-            font-size: 9px;
-            font-weight: 400;
-            line-height: 1.33;
-        }
-
-        .log span {
-            font-weight: 600;
-        }
+header img {
+    width: 160.6px;
+    height: 24.5px;
+    object-fit: contain;
+}
     </style>
+
 </head>
 
 <body>
-    <header>
-        <img src="assets/fundamental-white.svg" height="24.5">
-        <span>
-            Release Notes
-        </span>
+    <header id="pageHeader">
+        <table width="100%">
+            <tr>
+                <td>
+                    <img src="${window.location.origin}/pdf-assets/fundamental.png" align="left" srcset="${window.location.origin}/pdf-assets/fundamental@2x.png 2x,
+                    ${window.location.origin}/pdf-assets/fundamental@3x.png 3x">
+                </td>
+                <td style="text-align:right; color: white !important">
+                  <span>Release Notes</span>
+                </td>
+            </tr>
+        </table>
     </header>
     <div class="content">
         <!-- heading -->
-        <h1>Changes and issues in version 0.9</h1>
+        ${this.getTitle()}
         <!-- each item is meant to be put through an array to generate release notes -->
         <!-- type -->
-        <div class="type">
-            <h2>Feature</h2>
-
-            <!-- category -->
-            <div class="category">
-                <h3>Front Office</h3>
-                <div class="line"></div>
-
-                <!-- log -->
-                <div class="log">
-                    <!--  log title & desc -->
-                    <p><span>46068</span> Assets Transfer out of Mutual funds</p>
-
-                    <!-- solution -->
-                    The sub-period TWRR formula has been updated with the following changes
-                    <br>
-                    <ul>
-                        <li>Sample log 1</li>
-                        <li>Sample log 2</li>
-                        <li>Sample log 3</li>
-                    </ul>
-                </div>
-                <div class="line" style="margin-top: 40px !important;"></div>
-            </div>
-
-        </div>
+        ${this.getTypesHtml()}
     </div>
 </body>
+
 </html>`
+      },
+      getTitle () {
+        if (this.fromRelease !== null && this.toRelease !== null) {
+          return `<h1>Updating from version ${this.fromRelease.name} to ${this.toRelease.name}</h1>`
+        } else if (this.currentRelease !== null) {
+          return `<h1>Changes and issues in version ${this.currentRelease.name}</h1>`
+        }
+      },
+      getTypesHtml () {
+        let html = ''
+        this.types.forEach((t) => {
+          if (this.getTypes(t)) {
+            html += `<div class="type"><h2> ${t.type} </h2>
+            <!-- category -->`
+            this.categories.forEach((c) => {
+              if (this.getCategories(c, t)) {
+                html += `<div class="category">
+                <h3>${c.type}</h3>
+                <div class="line"></div>
+                <!-- log -->`
+                this.filteredLogs.forEach((fl) => {
+                  if (fl.category === c.id && fl.type === t.id) {
+                    html += `
+            <div class="log">
+            <!--  log title & desc -->
+            <p>
+            <span>${fl.title}</span>${fl.desc}</p>
+
+            <!-- solution -->
+            ${fl.solution}
+            </div>`
+                  }
+                })
+              }
+            })
+            html += `<div class="line" style="margin-top: 40px !important;"></div>
+          </div></div>`
+          }
+        })
+        return html
       },
       downloadPdf () {
         // call function to create HTML
         this.createHtml()
-        console.log(this.html)
+        // console.log(this.html)
         // make call to API
-        // fetch('http://localhost:3000/print-pdf', {
-        //   method: 'post',
-        //   headers: {'Content-Type': 'application/json'},
-        //   body: JSON.stringify({
-        //     html: this.html
-        //   })
-        // })
-        // .then((res) => {
-        //   // convert response to array buffer
-        //   return res.arrayBuffer()
-        // })
-        // .then((data) => {
-        //   // create and download pdf file
-        //   const file = new Blob([data], {type: 'application/pdf'})
-        //   saveAs(file, `release notes - ${Date.now()} .pdf`)
-        // }, (err) => {
-        //   console.log(err)
-        // })
+        fetch('http://localhost:3000/print-pdf', {
+          method: 'post',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            html: this.html
+          })
+        })
+        .then((res) => {
+          // convert response to array buffer
+          return res.arrayBuffer()
+        })
+        .then((data) => {
+          // create and download pdf file
+          const file = new Blob([data], {type: 'application/pdf'})
+          saveAs(file, `release notes - ${Date.now()} .pdf`)
+        }, (err) => {
+          console.log(err.message)
+        })
       },
       init () {
         // get categories
