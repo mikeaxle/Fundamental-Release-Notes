@@ -123,7 +123,7 @@
                   <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
                     <img src="../assets/images/fdownload-pdf.png"/>
                     <span style="padding-left: 8px"></span>
-                    Download
+                    <span class="download-link">Download</span>
                   </span>
                   <download-excel
                     style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center"
@@ -132,7 +132,7 @@
                     :name    = "getXlsFileName">
                     <img src="../assets/images/fdownload-csv.png" />
                     <span style="padding-left: 8px"></span>
-                    Download
+                    <span class="download-link">Download</span>
                   </download-excel>
                 </div>
               </div>
@@ -169,7 +169,7 @@
                   <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
                     <img src="../assets/images/fdownload-pdf.png"/>
                     <span style="padding-left: 8px"></span>
-                    Download
+                    <span class="download-link">Download</span>
                   </span>
 
                   <download-excel
@@ -179,7 +179,7 @@
                     name    = "filename.xls">
                     <img src="../assets/images/fdownload-csv.png" />
                     <span style="padding-left: 8px"></span>
-                    Download
+                    <span class="download-link">Download</span>
                   </download-excel>
                 </div>
               </div>
@@ -719,15 +719,14 @@ ul {
 <style>
   @import '../assets/styles/main.css';
 
-  .fdownload-CSV {
-    /*width: 24px;*/
-    height: 29px;
-    object-fit: contain;
+  .download-link {
+
   }
 
-  .fdownload-PDF {
-    /*width: 24px;*/
-    height: 29px;
-    object-fit: contain;
+  .download-link:hover {
+    /*text-decoration: underline;*/
+    color: red;
+
   }
+
 </style>

@@ -34,13 +34,13 @@
         <span class="error" v-if="error">{{ error }}</span>
 
         <!-- login button-->
-        <button type="submit">
+        <button type="submit" style="font-size: 11px">
           LOGIN
         </button>
 
       </form>
     </div>
-    <p v-if="!loading">Forgot your password? &nbsp; <a class="contact-link" href="mailto:support@fundamental.net">Contact Support</a> &nbsp; to reset it.</p>
+    <p v-if="!loading">Forgot your password? &nbsp; <a class="contact-link" target="_blank" href="mailto:support@fundamental.net">Contact Support</a> &nbsp; to reset it.</p>
 
 
   </div>
@@ -138,7 +138,11 @@
   }
 
   .radio {
-    padding-bottom: 10px;
+    padding-bottom: 28px;
+  }
+
+  .radio__label {
+    font-size: 12px;
   }
 
   .error {
@@ -189,10 +193,11 @@
     border-style: none;
     border-bottom: 1px solid rgba(74, 76, 84, 0.15);
     margin-bottom: 40px;
-    font-size: 16px;
+    font-size: 14px;
     color: #4a4c54;
     letter-spacing: 1px;
     padding-bottom: 5px;
+    height: 21px;
   }
 
   .login-line {
