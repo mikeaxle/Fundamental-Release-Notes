@@ -36,7 +36,7 @@
 
 <script>
   import Velocity from 'velocity'
-  import { HTTP } from '../http-common'
+  // import { HTTP } from '../http-common'
   export default {
     name: 'Log',
     props: ['logs', 'category', 'type'],
@@ -52,13 +52,13 @@
         } else {
           l.isopen = 0
         }
-        HTTP.put(`logs/${l.id}`, l)
-          .then((res) => {
-            console.log('log opened')
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+        // HTTP.put(`logs/${l.id}`, l)
+        //   .then((res) => {
+        //     console.log('log opened')
+        //   })
+        //   .catch((err) => {
+        //     console.log(err)
+        //   })
       },
       beforeEnter: function (el) {
         el.style.opacity = 0

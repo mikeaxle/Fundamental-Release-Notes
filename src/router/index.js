@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import ReleaseNotes from '@/components/ReleaseNotes'
 import Contact from '@/components/Contact'
 import Article from '@/components/Article'
+import Login from '@/components/Login'
 // import Category from '@/components/Category'
 
 Vue.use(Router)
@@ -11,6 +12,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/ReleaseNotes',
       name: 'ReleaseNotes',
       component: ReleaseNotes
     },

@@ -4,6 +4,11 @@
       "email": "mikeaxle2006@gmail.com",
       "username": "mikeaxle",
       "password": "ookami"
+    },
+    {
+      "email": "test@test.com",
+      "username": "test",
+      "password": "test"
     }
   ]
 }

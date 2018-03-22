@@ -7,7 +7,12 @@
           <img src="../assets/images/fundamental-icon.svg" alt=""/>
           <h3>Release Notes</h3>
         </a>
-        <a href="http://www.fundamental.net/contact/" target="_blank" class="btn btn--contact">Contact us</a>
+        <span>
+          <a href="#" @click="logout()" class="btn btn--contact">Logout</a>
+          <span style="padding-left: 20px"></span>
+          <a href="http://www.fundamental.net/contact/" target="_blank" class="btn btn--contact">Contact us</a>
+        </span>
+
       </div>
     </header>
 
@@ -111,18 +116,25 @@
 
             <!-- notes from version selector -->
             <div class="notes" v-if="currentRelease !== null">
-              <div style="display: flex; flex-direction: row;">
+
+              <div style="display: flex; flex-direction: column;">
                 <h2>Changes and issues in version {{ currentRelease.name }}</h2>
-                <span @click="downloadPdf()">DOwnload PDF</span>
-                <download-excel
-                  class   = "btn btn-default"
-                  :data   = "filteredLogs"
-                  :fields = "json_fields"
-                  name    = "filename.xls">
-
-                  Download Excel
-
-                </download-excel>
+                <div style="display: flex; flex-direction: row; margin-bottom: 30px">
+                  <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
+                    <img src="../assets/images/fdownload-pdf.png"/>
+                    <span style="padding-left: 8px"></span>
+                    Download
+                  </span>
+                  <download-excel
+                    style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center"
+                    :data   = "filteredLogs"
+                    :fields = "json_fields"
+                    :name    = "getXlsFileName">
+                    <img src="../assets/images/fdownload-csv.png" />
+                    <span style="padding-left: 8px"></span>
+                    Download
+                  </download-excel>
+                </div>
               </div>
 
               <!-- types -->
@@ -150,11 +162,28 @@
 
             <!-- notes from version camparison -->
             <div class="notes" v-if="fromRelease !== null && toRelease !== null">
-              <div style="display: flex; flex-direction: row;">
+
+              <div style="display: flex; flex-direction: column;">
                 <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
-                <span @click="downloadPdf()">DOwnload PDF</span>
-                <span>DOwnload CSV</span>
+                <div style="display: flex; flex-direction: row; margin-bottom: 30px">
+                  <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
+                    <img src="../assets/images/fdownload-pdf.png"/>
+                    <span style="padding-left: 8px"></span>
+                    Download
+                  </span>
+
+                  <download-excel
+                    style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center"
+                    :data   = "filteredLogs"
+                    :fields = "json_fields"
+                    name    = "filename.xls">
+                    <img src="../assets/images/fdownload-csv.png" />
+                    <span style="padding-left: 8px"></span>
+                    Download
+                  </download-excel>
+                </div>
               </div>
+
               <!-- types -->
               <div class="notes__section" v-for="t in types">
                 <div v-if="getTypes(t)">
@@ -180,6 +209,7 @@
 <script>
   import { HTTP } from '../http-common'
   import { saveAs } from 'file-saver/FileSaver'
+  // import axios from 'axios'
   export default {
     name: 'ReleaseNotes',
     data () {
@@ -208,6 +238,9 @@
     },
     created () {
       this.init()
+      if (localStorage.getItem('user') === null) {
+        this.$router.push('/')
+      }
     },
     components: {
     },
@@ -231,22 +264,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="assets/styles.css">
     <style>
-      @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
+      @font-face {
+    font-family: 'Poppins';
+    font-weight: 400;
+    src: url("assets/Poppins-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'PoppinsBold';
+    font-weight: 600;
+    src: url("assets/Poppins-Bold.otf") format("opentype");
+}
+
       header {
     background-color: #4a4c54;
     padding: 13px 34px;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    font-family:Poppins;
+    font-family:'Poppins';
 }
 
-header img {
+header .logo {
     width: 160.6px;
     height: 24.5px;
     object-fit: contain;
+}
+
+body {
+    color: #4a4c54;
+    font-weight: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    font-family: 'Poppins';
+}
+
+h1 {
+    font-family: 'PoppinsBold';
+    font-size: 22px;
+    line-height: 1.21;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    margin: 0px;
+}
+
+h3 {
+    font-family: 'PoppinsBold';
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: normal;
+    margin: 0px;
+}
+
+ul {
+    line-height: 1.33 !important;
+    list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='256' fill='#ff0000' /%3E%3C/svg%3E");
+}
+
+.line {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 1px;
+    background-color: #dfdfdf;
+    border-bottom: solid 1px #dfdfdf;
+}
+
+.content {
+    padding: 0px 35px;
+}
+
+.title {
+  font-family: 'PoppinsBold';
+}
+
+.type {
+    padding-top: 20px;
+}
+
+.category {
+    padding-top: 21px;
+    padding-bottom: 0px;
+}
+
+.log {
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1.33;
 }
     </style>
 
@@ -257,11 +368,13 @@ header img {
         <table width="100%">
             <tr>
                 <td>
-                    <img src="${window.location.origin}/pdf-assets/fundamental.png" align="left" srcset="${window.location.origin}/pdf-assets/fundamental@2x.png 2x,
+
+                    <img class="logo" src="${window.location.origin}/pdf-assets/fundamental.png" align="left" srcset="${window.location.origin}/pdf-assets/fundamental@2x.png 2x,
                     ${window.location.origin}/pdf-assets/fundamental@3x.png 3x">
                 </td>
-                <td style="text-align:right; color: white !important">
-                  <span>Release Notes</span>
+                <td style="color: white !important">
+                  <img src="${window.location.origin}/pdf-assets/ReleaseNotes.png" align="right" height="15px" />
+
                 </td>
             </tr>
         </table>
@@ -302,7 +415,7 @@ header img {
             <div class="log">
             <!--  log title & desc -->
             <p>
-            <span>${fl.title}</span>${fl.desc}</p>
+            <span class="title">${fl.title}</span> ${fl.desc}</p>
 
             <!-- solution -->
             ${fl.solution}
@@ -311,7 +424,7 @@ header img {
                 })
               }
             })
-            html += `<div class="line" style="margin-top: 40px !important;"></div>
+            html += `<div class="line" style="margin-top: 25px !important;"></div>
           </div></div>`
           }
         })
@@ -321,8 +434,9 @@ header img {
         // call function to create HTML
         this.createHtml()
         // console.log(this.html)
-        // make call to API
-        fetch('http://localhost:3000/print-pdf', {
+        // https://print-server-frn.appspot.com/print-pdf
+        // http://localhost:3000/print-pdf
+        fetch('https://print-server-frn.appspot.com/print-pdf', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -338,10 +452,18 @@ header img {
           const file = new Blob([data], {type: 'application/pdf'})
           saveAs(file, `release notes - ${Date.now()} .pdf`)
         }, (err) => {
-          console.log(err.message)
+          alert(err.message)
         })
       },
       init () {
+        // get logs
+        HTTP.get('logs?transform=1')
+          .then((res) => {
+            this.logs = res.data.logs
+          })
+          .catch((err) => {
+            alert(err)
+          })
         // get categories
         HTTP.get('categories?transform=1')
           .then((res) => {
@@ -456,17 +578,6 @@ header img {
       },
       // function to get the logs of the selected release
       getLogs () {
-        // get logs
-        HTTP.get('logs?transform=1')
-          .then((res) => {
-            this.logs = res.data.logs
-            // this.logs.forEach(l => {
-            //   l.isopen = true
-            // })
-          })
-          .catch((err) => {
-            alert(err)
-          })
         // array to store logs
         let logs = []
         // if type is single
@@ -534,9 +645,16 @@ header img {
         }
         console.log(flag)
         return flag
+      },
+      logout () {
+        this.$router.push('/')
+        localStorage.clear()
       }
     },
     computed: {
+      getXlsFileName () {
+        return `release notes - ${Date.now()}.xls`
+      },
       // function to filters logs
       filteredLogs () {
         // get all logs under release
@@ -600,4 +718,16 @@ header img {
 
 <style>
   @import '../assets/styles/main.css';
+
+  .fdownload-CSV {
+    /*width: 24px;*/
+    height: 29px;
+    object-fit: contain;
+  }
+
+  .fdownload-PDF {
+    /*width: 24px;*/
+    height: 29px;
+    object-fit: contain;
+  }
 </style>
