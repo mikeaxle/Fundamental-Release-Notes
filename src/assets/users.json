@@ -3,12 +3,14 @@
     {
       "email": "mikeaxle2006@gmail.com",
       "username": "mikeaxle",
-      "password": "ookami"
+      "password": "ookami",
+      "company": ""
     },
     {
       "email": "test@test.com",
       "username": "test",
-      "password": "test"
+      "password": "test",
+      "company": ""
     }
   ]
 }

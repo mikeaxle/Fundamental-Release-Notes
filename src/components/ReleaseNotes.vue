@@ -105,6 +105,9 @@
                 </label>
               </div>
             </div>
+            <div v-if="checkedFiltersTypes.length > 0 || checkedFiltersCategories.length > 0">
+              <button class="clear-filters-btn" @click="clearFilters()">CLEAR FILTERS</button>
+            </div>
           </div>
 
           <!-- release notes -->
@@ -118,10 +121,10 @@
             <div class="notes" v-if="currentRelease !== null">
 
               <div style="display: flex; flex-direction: column;">
-                <h2>Changes and issues in version {{ currentRelease.name }}</h2>
+                <h2>Changes and issues in FPM version {{ currentRelease.name }}</h2>
                 <div style="display: flex; flex-direction: row; margin-bottom: 30px">
                   <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
-                    <img src="../assets/images/fdownload-pdf.png"/>
+                    <img src="../assets/images/download-pdf.svg"/>
                     <span style="padding-left: 8px"></span>
                     <span class="download-link">Download</span>
                   </span>
@@ -130,7 +133,7 @@
                     :data   = "filteredLogs"
                     :fields = "json_fields"
                     :name    = "getXlsFileName">
-                    <img src="../assets/images/fdownload-csv.png" />
+                    <img src="../assets/images/download-xls.svg" />
                     <span style="padding-left: 8px"></span>
                     <span class="download-link">Download</span>
                   </download-excel>
@@ -164,10 +167,10 @@
             <div class="notes" v-if="fromRelease !== null && toRelease !== null">
 
               <div style="display: flex; flex-direction: column;">
-                <h2>Updating from version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
+                <h2>Cumulative Release notes - FPM version {{ fromRelease.name }} to {{ toRelease.name }}</h2>
                 <div style="display: flex; flex-direction: row; margin-bottom: 30px">
                   <span style="padding-right: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center" @click="downloadPdf()">
-                    <img src="../assets/images/fdownload-pdf.png"/>
+                    <img src="../assets/images/download-pdf.svg"/>
                     <span style="padding-left: 8px"></span>
                     <span class="download-link">Download</span>
                   </span>
@@ -177,7 +180,7 @@
                     :data   = "filteredLogs"
                     :fields = "json_fields"
                     name    = "filename.xls">
-                    <img src="../assets/images/fdownload-csv.png" />
+                    <img src="../assets/images/download-xls.svg" />
                     <span style="padding-left: 8px"></span>
                     <span class="download-link">Download</span>
                   </download-excel>
@@ -226,6 +229,7 @@
         checkedFiltersCategories: [],   // array to store category filters
         versionMode: 1,
         html: '',
+        filename: '',
         json_fields: {
           'Release': 'release',
           'Category': 'category',
@@ -334,7 +338,7 @@ ul {
     margin-bottom: 15px;
     height: 1px;
     background-color: #dfdfdf;
-    border-bottom: solid 1px #dfdfdf;
+         border-bottom: solid 1px #dfdfdf;
 }
 
 .content {
@@ -381,7 +385,7 @@ ul {
     </header>
     <div class="content">
         <!-- heading -->
-        ${this.getTitle()}
+        <h1>${this.getTitle()}</h1>
         <!-- each item is meant to be put through an array to generate release notes -->
         <!-- type -->
         ${this.getTypesHtml()}
@@ -392,9 +396,10 @@ ul {
       },
       getTitle () {
         if (this.fromRelease !== null && this.toRelease !== null) {
-          return `<h1>Updating from version ${this.fromRelease.name} to ${this.toRelease.name}</h1>`
+          return `Fundamental Cumulative Release notes - FPM version ${this.fromRelease.name} to ${this.toRelease.name}`
         } else if (this.currentRelease !== null) {
-          return `<h1>Changes and issues in version ${this.currentRelease.name}</h1>`
+          return `Fundamental Release Notes - FPM version ${this.currentRelease.name}`
+          // return `<h1>Changes and issues in FPM version ${this.currentRelease.name}</h1>`
         }
       },
       getTypesHtml () {
@@ -436,7 +441,7 @@ ul {
         // console.log(this.html)
         // https://print-server-frn.appspot.com/print-pdf
         // http://localhost:3000/print-pdf
-        fetch('https://print-server-frn.appspot.com/print-pdf', {
+        fetch('https://arcane-basin-79503.herokuapp.com/print-pdf', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -450,7 +455,7 @@ ul {
         .then((data) => {
           // create and download pdf file
           const file = new Blob([data], {type: 'application/pdf'})
-          saveAs(file, `release notes - ${Date.now()} .pdf`)
+          saveAs(file, `${this.getTitle()}.pdf`)
         }, (err) => {
           alert(err.message)
         })
@@ -496,6 +501,10 @@ ul {
           .catch((err) => {
             alert(err)
           })
+      },
+      clearFilters () {
+        this.checkedFiltersTypes = []
+        this.checkedFiltersCategories = []
       },
       // function to toggle display modes
       modeToggle () {
@@ -653,7 +662,7 @@ ul {
     },
     computed: {
       getXlsFileName () {
-        return `release notes - ${Date.now()}.xls`
+        return `${this.getTitle()}.xls`
       },
       // function to filters logs
       filteredLogs () {
@@ -718,6 +727,36 @@ ul {
 
 <style>
   @import '../assets/styles/main.css';
+
+  .clear-filters-btn {
+    width: 160px;
+    height: 28px;
+    border-radius: 2px;
+    box-shadow: inset 0 -2px 0 0 rgba(255, 67, 53, 0.06);
+    border: solid 1px #ff4335;
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 0.91;
+    letter-spacing: 1.1px;
+    text-align: center;
+    color: #ff4335;
+  }
+
+  .clear-filters-btn-disabled {
+    width: 160px;
+    height: 28px;
+    border-radius: 2px;
+    box-shadow: inset 0 -2px 0 0 rgba(255, 67, 53, 0.06);
+    border: solid 1px darkgrey;
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 0.91;
+    letter-spacing: 1.1px;
+    text-align: center;
+    color: darkgrey;
+  }
 
   .download-link {
 
