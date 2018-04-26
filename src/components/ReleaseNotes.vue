@@ -441,7 +441,7 @@ ul {
         // console.log(this.html)
         // https://print-server-frn.appspot.com/print-pdf
         // http://localhost:3000/print-pdf
-        fetch('https://arcane-basin-79503.herokuapp.com/print-pdf', {
+        fetch('https://fundamental-print-server.herokuapp.com/print-pdf', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
