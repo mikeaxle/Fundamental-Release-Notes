@@ -2714,7 +2714,7 @@ class PHP_CRUD_API {
 // uncomment the lines below when running in stand-alone mode:
 // mysql://b5151cfe2d43fa:5738e014@us-cdbr-iron-east-05.cleardb.net/heroku_f9b85ab9c53e7c0?reconnect=true
 
-// mysql --host=us-cdbr-iron-east-05.cleardb.net --user=b5151cfe2d43fa --password=5738e014 --reconnect heroku_f9b85ab9c53e7c0 < releasenotes.sql
+// /Applications/MAMP/Library/bin/mysql --host=us-cdbr-iron-east-05.cleardb.net --user=b5151cfe2d43fa --password=5738e014 --reconnect heroku_f9b85ab9c53e7c0 < releasenotes.sql
 
  $api = new PHP_CRUD_API(array(
  	'dbengine'=>'MySQL',
