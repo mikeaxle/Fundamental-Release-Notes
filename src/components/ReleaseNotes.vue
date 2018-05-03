@@ -368,7 +368,7 @@ ul {
 </head>
 
 <body>
-    <header id="pageHeader">
+    <header>
         <table width="100%">
             <tr>
                 <td>
@@ -377,7 +377,7 @@ ul {
                     https://fundamental-release-notes.herokuapp.com/pdf-assets/fundamental@3x.png 3x">
                 </td>
                 <td style="color: white !important">
-                  <img src="https://fundamental-release-notes.herokuapp.com/pdf-assets/ReleaseNotes.png" align="right" height="15px" />
+                  <img src="https://fundamental-release-notes.herokuapp.com/pdf-assets/ReleaseNotes.png" align="right" height="10px" />
 
                 </td>
             </tr>
@@ -438,9 +438,9 @@ ul {
       downloadPdf () {
         // call function to create HTML
         this.createHtml()
-        console.log(this.html)
-        // https://print-server-frn.appspot.com/print-pdf
+        // console.log(this.html)
         // http://localhost:3000/print-pdf
+        // https://fundamental-print-server.herokuapp.com/print-pdf
         fetch('https://fundamental-print-server.herokuapp.com/print-pdf', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
