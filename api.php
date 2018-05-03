@@ -2716,26 +2716,26 @@ class PHP_CRUD_API {
 
 // /Applications/MAMP/Library/bin/mysql --host=us-cdbr-iron-east-05.cleardb.net --user=b5151cfe2d43fa --password=5738e014 --reconnect heroku_f9b85ab9c53e7c0 < releasenotes.sql
 
-//  $api = new PHP_CRUD_API(array(
-//  	'dbengine'=>'MySQL',
-//  	'hostname'=>'us-cdbr-iron-east-05.cleardb.net',
-//  	'username'=>'b5151cfe2d43fa',
-//  	'password'=>'5738e014',
-//  	'database'=>'heroku_f9b85ab9c53e7c0',
-//  	'charset'=>'utf8'
-//  ));
-//  $api->executeCommand();
-
-
  $api = new PHP_CRUD_API(array(
-	'dbengine'=>'MySQL',
-	'hostname'=>'sql32.jnb2.host-h.net',
-	'username'=>'releasenotes',
-	'password'=>'wolf1988',
-	'database'=>'releasenotes',
-	'charset'=>'utf8'
-));
-$api->executeCommand();
+ 	'dbengine'=>'MySQL',
+ 	'hostname'=>'us-cdbr-iron-east-05.cleardb.net',
+ 	'username'=>'b5151cfe2d43fa',
+ 	'password'=>'5738e014',
+ 	'database'=>'heroku_f9b85ab9c53e7c0',
+ 	'charset'=>'utf8'
+ ));
+ $api->executeCommand();
+
+
+//  $api = new PHP_CRUD_API(array(
+// 	'dbengine'=>'MySQL',
+// 	'hostname'=>'sql32.jnb2.host-h.net',
+// 	'username'=>'releasenotes',
+// 	'password'=>'releasenotes',
+// 	'database'=>'releasenotes',
+// 	'charset'=>'utf8'
+// ));
+// $api->executeCommand();
 
 // For Microsoft SQL Server 2012 use:
 
