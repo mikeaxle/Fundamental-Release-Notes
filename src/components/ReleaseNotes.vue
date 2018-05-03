@@ -373,11 +373,11 @@ ul {
             <tr>
                 <td>
 
-                    <img class="logo" src="${window.location.origin}/pdf-assets/fundamental.png" align="left" srcset="${window.location.origin}/pdf-assets/fundamental@2x.png 2x,
-                    ${window.location.origin}/pdf-assets/fundamental@3x.png 3x">
+                    <img class="logo" src="https://fundamental-release-notes.herokuapp.com/pdf-assets/fundamental.png" align="left" srcset="${window.location.origin}/pdf-assets/fundamental@2x.png 2x,
+                    https://fundamental-release-notes.herokuapp.com/pdf-assets/fundamental@3x.png 3x">
                 </td>
                 <td style="color: white !important">
-                  <img src="${window.location.origin}/pdf-assets/ReleaseNotes.png" align="right" height="15px" />
+                  <img src="https://fundamental-release-notes.herokuapp.com/pdf-assets/ReleaseNotes.png" align="right" height="15px" />
 
                 </td>
             </tr>
@@ -438,7 +438,7 @@ ul {
       downloadPdf () {
         // call function to create HTML
         this.createHtml()
-        console.log(this.html)
+        // console.log(this.html)
         // https://print-server-frn.appspot.com/print-pdf
         // http://localhost:3000/print-pdf
         fetch('https://fundamental-print-server.herokuapp.com/print-pdf', {
