@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <linearGradient id="download-xls-a" x1="2.792%" x2="56.67%" y1="0%" y2="54.903%">
+      <stop offset="0%" stop-color="#70727B"/>
+      <stop offset="100%" stop-color="#4A4C54"/>
+    </linearGradient>
+    <linearGradient id="download-xls-d" x1="11.672%" x2="253.143%" y1="11.201%" y2="503.045%">
+      <stop offset="0%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+    <rect id="download-xls-c" width="10" height="4" x="5" y="10" rx=".2"/>
+    <filter id="download-xls-b" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <rect id="download-xls-f" width="10" height="4" x="5" y="16" rx=".2"/>
+    <filter id="download-xls-e" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <rect id="download-xls-h" width="10" height="4" x="5" y="22" rx=".2"/>
+    <filter id="download-xls-g" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <rect id="download-xls-j" width="10" height="4" x="17" y="10" rx=".2"/>
+    <filter id="download-xls-i" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <rect id="download-xls-l" width="10" height="4" x="17" y="16" rx=".2"/>
+    <filter id="download-xls-k" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <rect id="download-xls-n" width="10" height="4" x="17" y="22" rx=".2"/>
+    <filter id="download-xls-m" width="170%" height="275%" x="-35%" y="-62.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.108129529 0"/>
+    </filter>
+    <linearGradient id="download-xls-r" x1="-33.474%" x2="42.114%" y1="-95.4%" y2="118.424%">
+      <stop offset="0%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#E1E2E1"/>
+    </linearGradient>
+    <linearGradient id="download-xls-q" x1="-144.327%" x2="124.83%" y1="-214.54%" y2="177.691%">
+      <stop offset="0%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#E1E2E1"/>
+    </linearGradient>
+    <path id="download-xls-p" d="M21.9996,0.0004 L21.9996,9.0004 C21.9996,9.55268475 22.4473153,10.0004 22.9996,10.0004 L32.0006,10.0004 L21.9996,0.0004 Z"/>
+    <filter id="download-xls-o" width="141%" height="141%" x="-20.5%" y="-10.5%" filterUnits="objectBoundingBox">
+      <feMorphology in="SourceAlpha" operator="dilate" radius=".05" result="shadowSpreadOuter1"/>
+      <feOffset dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.214872736   0 0 0 0 0.220423665   0 0 0 0 0.245402849  0 0 0 1 0"/>
+    </filter>
+    <linearGradient id="download-xls-u" x1="-24.295%" x2="84.627%" y1="-41.757%" y2="93.852%">
+      <stop offset="0%" stop-color="#FF8171"/>
+      <stop offset="100%" stop-color="#FF4436"/>
+    </linearGradient>
+    <path id="download-xls-t" d="M1.41926395,13 L33.580736,13 C34.3645739,13 35,12.3645739 35,11.580736 L35,1.41926395 C35,0.635426115 34.3645739,-8.10122489e-16 33.580736,-6.66133815e-16 L1.41926395,0 C0.635426115,1.43988674e-16 2.1244536e-15,0.635426115 2.22044605e-15,1.41926395 L0,11.580736 C9.59924497e-17,12.3645739 0.635426115,13 1.41926395,13 Z"/>
+    <filter id="download-xls-s" width="105.7%" height="115.4%" x="-4.3%" y="-11.5%" filterUnits="objectBoundingBox">
+      <feOffset dx="-1" dy="-1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(11 9)">
+    <g transform="translate(6)">
+      <path fill="url(#download-xls-a)" d="M0,1 L0,39 C6.76353751e-17,39.5522847 0.44771525,40 1,40 L31,40 C31.5522847,40 32,39.5522847 32,39 L32,10.4142136 C32,10.1489971 31.8946432,9.89464316 31.7071068,9.70710678 L22.2928932,0.292893219 C22.1053568,0.10535684 21.8510029,-4.87194788e-17 21.5857864,0 L1,0 C0.44771525,1.01453063e-16 -6.76353751e-17,0.44771525 0,1 Z"/>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-b)" xlink:href="#download-xls-c"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-c"/>
+      </g>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-e)" xlink:href="#download-xls-f"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-f"/>
+      </g>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-g)" xlink:href="#download-xls-h"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-h"/>
+      </g>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-i)" xlink:href="#download-xls-j"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-j"/>
+      </g>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-k)" xlink:href="#download-xls-l"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-l"/>
+      </g>
+      <g opacity=".8">
+        <use fill="#000" filter="url(#download-xls-m)" xlink:href="#download-xls-n"/>
+        <use fill="url(#download-xls-d)" xlink:href="#download-xls-n"/>
+      </g>
+      <g stroke-linecap="round" stroke-linejoin="round">
+        <use fill="#000" filter="url(#download-xls-o)" xlink:href="#download-xls-p"/>
+        <use fill="url(#download-xls-r)" stroke="url(#download-xls-q)" stroke-width=".1" xlink:href="#download-xls-p"/>
+      </g>
+    </g>
+    <g transform="translate(0 29)">
+      <use fill="#000" filter="url(#download-xls-s)" xlink:href="#download-xls-t"/>
+      <use fill="url(#download-xls-u)" xlink:href="#download-xls-t"/>
+      <path fill="#FFF" d="M13.829375,2.29666667 L10.915625,6.87266667 L13.81625,11.4226667 L11.27,11.4226667 L9.576875,8.77066667 L8.015,11.4226667 L5.46875,11.4226667 L8.369375,6.85966667 L5.46875,2.29666667 L8.015,2.29666667 L9.708125,4.96166667 L11.283125,2.29666667 L13.829375,2.29666667 Z M15.456875,2.29666667 L17.70125,2.29666667 L17.70125,9.73266667 L20.496875,9.73266667 L20.496875,11.4226667 L15.456875,11.4226667 L15.456875,2.29666667 Z M24.1784375,4.14266667 C23.9990616,4.29000074 23.909375,4.50233195 23.909375,4.77966667 C23.909375,5.05700139 23.9924992,5.28016582 24.15875,5.44916667 C24.3250008,5.61816751 24.5415612,5.74816621 24.8084375,5.83916667 C25.0753138,5.93016712 25.3728109,6.01683292 25.7009375,6.09916667 C26.0290641,6.18150041 26.3549984,6.28116608 26.67875,6.39816667 C27.0025016,6.51516725 27.2978112,6.66033247 27.5646875,6.83366667 C27.8315638,7.00700087 28.0481242,7.25183175 28.214375,7.56816667 C28.3806258,7.88450158 28.46375,8.26366446 28.46375,8.70566667 C28.46375,9.47700386 28.1465657,10.1378306 27.5121875,10.6881667 C26.8778093,11.2385028 26.0421927,11.5136667 25.0053125,11.5136667 C23.9684323,11.5136667 23.1328157,11.2666691 22.4984375,10.7726667 C21.8640593,10.2786642 21.546875,9.57667122 21.546875,8.66666667 L23.935625,8.66666667 C23.9968753,9.39467031 24.3731215,9.75866667 25.064375,9.75866667 C25.3881266,9.75866667 25.6418741,9.67416751 25.825625,9.50516667 C26.0093759,9.33616582 26.10125,9.12166797 26.10125,8.86166667 C26.10125,8.60166537 26.0181258,8.38933416 25.851875,8.22466667 C25.6856242,8.05999918 25.4690638,7.93000048 25.2021875,7.83466667 C24.9353112,7.73933286 24.6378141,7.65050041 24.3096875,7.56816667 C23.9815609,7.48583292 23.6556266,7.38400061 23.331875,7.26266667 C23.0081234,7.14133273 22.7128138,6.99616751 22.4459375,6.82716667 C22.1790612,6.65816582 21.9625008,6.41550158 21.79625,6.09916667 C21.6299992,5.78283175 21.546875,5.40800217 21.546875,4.97466667 C21.546875,4.12532909 21.8662468,3.44500256 22.505,2.93366667 C23.1437532,2.42233078 23.9596825,2.16666667 24.9528125,2.16666667 C25.9459425,2.16666667 26.7487469,2.3898311 27.36125,2.83616667 C27.9737531,3.28250223 28.2931249,3.98666186 28.319375,4.94866667 L25.878125,4.94866667 C25.8431248,4.61933169 25.7359384,4.36583422 25.5565625,4.18816667 C25.3771866,4.01049911 25.1475014,3.92166667 24.8675,3.92166667 C24.5874986,3.92166667 24.3578134,3.9953326 24.1784375,4.14266667 Z"/>
+    </g>
+  </g>
+</svg>
