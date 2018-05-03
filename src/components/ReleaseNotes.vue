@@ -438,7 +438,7 @@ ul {
       downloadPdf () {
         // call function to create HTML
         this.createHtml()
-        // console.log(this.html)
+        console.log(this.html)
         // https://print-server-frn.appspot.com/print-pdf
         // http://localhost:3000/print-pdf
         fetch('https://fundamental-print-server.herokuapp.com/print-pdf', {
