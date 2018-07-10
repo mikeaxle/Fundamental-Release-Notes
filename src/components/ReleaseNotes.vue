@@ -441,7 +441,7 @@ ul {
         // console.log(this.html)
         // http://localhost:3000/print-pdf
         // https://fundamental-print-server.herokuapp.com/print-pdf
-        fetch('https://fundamental-print-server.herokuapp.com/print-pdf', {
+        fetch('https://fsreleasenotespdf.azurewebsites.net/print-pdf', {
           method: 'post',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -494,13 +494,13 @@ ul {
             alert(err)
           })
         // get logBinaries
-        HTTP.get('logBinaries?transform=1')
-          .then((res) => {
-            this.logBinaries = res.data.logBinaries
-          })
-          .catch((err) => {
-            alert(err)
-          })
+        // HTTP.get('logBinaries?transform=1')
+        //   .then((res) => {
+        //     this.logBinaries = res.data.logBinaries
+        //   })
+        //   .catch((err) => {
+        //     alert(err)
+        //   })
       },
       clearFilters () {
         this.checkedFiltersTypes = []
