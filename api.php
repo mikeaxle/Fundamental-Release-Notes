@@ -2718,10 +2718,10 @@ class PHP_CRUD_API {
 
  $api = new PHP_CRUD_API(array(
  	'dbengine'=>'MySQL',
- 	'hostname'=>'us-cdbr-iron-east-05.cleardb.net',
- 	'username'=>'b5151cfe2d43fa',
- 	'password'=>'5738e014',
- 	'database'=>'heroku_f9b85ab9c53e7c0',
+ 	'hostname'=>'http://localhost:8889/',
+ 	'username'=>'mikeaxle',
+ 	'password'=>'ookami',
+ 	'database'=>'release_notes',
  	'charset'=>'utf8'
  ));
  $api->executeCommand();
