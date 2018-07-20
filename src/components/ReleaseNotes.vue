@@ -296,14 +296,14 @@ body {
 }
 
 h1 {
-
+  font-family: 'PoppinsBold';
     font-size: 22px;
     line-height: 1.21;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1;
     letter-spacing: 0.2px;
@@ -312,10 +312,11 @@ h2 {
 
 h3 {
 
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1;
     letter-spacing: normal;
     margin: 0px;
+    font-family: 'PoppinsBold';
 }
 
 ul {
@@ -349,7 +350,7 @@ ul {
 }
 
 .log {
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.33;
 }
@@ -427,11 +428,17 @@ ul {
         // call function to create HTML
         this.createHtml()
         // console.log(this.html)
-        fetch('https://url-to-pdf-api.herokuapp.com/api/render', {
+        fetch('https://cors-anywhere.herokuapp.com/https://url-to-pdf-api.herokuapp.com/api/render', {
           method: 'post',
+          mode: 'cors',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            html: this.html
+            html: this.html,
+            pdf:{ 
+              margin: {
+                top: '0.5cm'
+              },
+            },
           })
         })
         .then((res) => {
