@@ -2718,24 +2718,13 @@ class PHP_CRUD_API {
 
  $api = new PHP_CRUD_API(array(
  	'dbengine'=>'MySQL',
- 	'hostname'=>'http://localhost:8889/',
- 	'username'=>'mikeaxle',
- 	'password'=>'ookami',
- 	'database'=>'release_notes',
+ 	'hostname'=>'fsw.mysql.database.azure.com',
+ 	'username'=>'techsupport@fsw',
+ 	'password'=>'Fundamental2018',
+ 	'database'=>'releasenotes',
  	'charset'=>'utf8'
  ));
  $api->executeCommand();
-
-
-//  $api = new PHP_CRUD_API(array(
-// 	'dbengine'=>'MySQL',
-// 	'hostname'=>'sql32.jnb2.host-h.net',
-// 	'username'=>'releasenotes',
-// 	'password'=>'releasenotes',
-// 	'database'=>'releasenotes',
-// 	'charset'=>'utf8'
-// ));
-// $api->executeCommand();
 
 // For Microsoft SQL Server 2012 use:
 
