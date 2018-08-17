@@ -41,7 +41,7 @@
 
                 <dt>Date</dt>
                 <!-- todo: add date here from database -->
-                <dd><time datetime="2017-09-19"> --- </time></dd>
+                <dd><time> {{ article.log_date }} </time></dd>
               </dl>
 
               <!-- share via email-->
