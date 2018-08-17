@@ -15,7 +15,7 @@
 
         <ul class="breadcrumbs">
           <li><router-link to="/">Fundamental Release Notes</router-link></li>
-          <li style="color: #4a4c54 !important;">{{ getType('name') }} &nbsp; : &nbsp; {{ getCategory('name') }}</li>
+          <li style="color: #4a4c54 !important;">{{ type.type }} &nbsp; : &nbsp; {{ category.type }}</li>
           <!--<li><router-link :to="{ name: 'category', params: { category: getCategory('id'), type: getType('id'), release: getRelease('id')  }}">{{ getType('name') }}</router-link></li>-->
           <!--<li>{{ getCategory('name')  }}</li>-->
         </ul>
@@ -30,23 +30,24 @@
 
             <!-- log details-->
             <div class="article__meta">
-              <h4>{{ getRelease('name') }}</h4>
+              <h4>{{ release.name }}</h4>
 
               <dl class="article__meta-details">
                 <dt>Module</dt>
-                <dd>{{ getCategory('name') }}</dd>
+                <dd>{{ category.type }}</dd>
 
                 <dt>Ticket</dt>
                 <dd>{{ article.title }}</dd>
 
                 <dt>Date</dt>
-                <dd><time datetime="2017-09-19">19 September 2017</time></dd>
+                <!-- todo: add date here from database -->
+                <dd><time datetime="2017-09-19"> --- </time></dd>
               </dl>
 
               <!-- share via email-->
               <social-sharing
                 :url="email_body"
-                :title="getCategory('name') + ': ' + article.desc"
+                :title="category.type + ': ' + article.desc"
                 inline-template>
                 <network network="email" class="article__meta-email" style="cursor: pointer !important;">
                   <span class="svg svg-footer-mail-us svg-footer-mail-us-dims" ></span>Share via email
@@ -59,7 +60,7 @@
 
             <!-- log content-->
             <article class="article__content">
-              <h1>{{ getCategory('name') }}: {{ article.desc }}</h1>
+              <h1>{{ category.type }}: {{ article.desc }}</h1>
               <div class="rte">
                 <p v-html="article.solution"></p>
               </div>
@@ -77,13 +78,15 @@
 </template>
 
 <script>
-  // import axios from 'axios'
-  import json from '../assets/demo.json'
+  import { HTTP } from '../http-common'
   export default {
     name: 'Article',
     data () {
       return {
         article: {},
+        category: {},
+        type: {},
+        release: {},
         email_body: 'Hello, \n \n Please refer below to the latest Fundamental Release Notes.\n \n' + window.location.href
       }
     },
@@ -97,7 +100,7 @@
       getEmailBody () {
         return `
             <article class="article__content">
-              <h1>{{ getCategory('name') }}: {{ article.desc }}</h1>
+              <h1>{{ category.type }}: {{ article.desc }}</h1>
               <div class="rte">
                 <p v-html="this.article.solution"></p>
               </div>
@@ -106,53 +109,49 @@
       },
       // function to load log data
       fetchData () {
-        json.logs.forEach((l) => {
-          if (l.id === Number(this.$route.params.id)) {
-            this.article = l
-          }
+        HTTP.get(`logs/${this.$route.params.id}?transform=1`)
+        .then((res) => {
+          this.article = res.data
+          return res.data
+        })
+        .then((article) => {
+          this.getCategory(article)
+          this.getType(article)
+          this.getRelease(article)
+        })
+        .catch((err) => {
+          alert(err)
         })
       },
       // function to get category
-      getCategory (field) {
-        let category
-        json.categories.forEach((c) => {
-          if (c.id === this.article.category) {
-            if (field === 'id') {
-              category = c.id
-            } else if (field === 'name') {
-              category = c.type
-            }
-          }
+      getCategory (article) {
+        HTTP.get(`categories/${article.category}?transform=1`)
+        .then((res) => {
+          this.category = res.data
         })
-        return category
+        .catch((err) => {
+          alert(err)
+        })
       },
       // function to get type
-      getType (field) {
-        let type
-        json.types.forEach((t) => {
-          if (t.id === this.article.type) {
-            if (field === 'id') {
-              type = t.id
-            } else if (field === 'name') {
-              type = t.type
-            }
-          }
+      getType (article) {
+        HTTP.get(`types/${article.type}?transform=1`)
+        .then((res) => {
+          this.type = res.data
         })
-        return type
+        .catch((err) => {
+          alert(err)
+        })
       },
       // function to get release
-      getRelease (field) {
-        let release = ''
-        json.releases.forEach((r) => {
-          if (r.id === this.article.release) {
-            if (field === 'id') {
-              release = r.id
-            } else if (field === 'name') {
-              release = r.name
-            }
-          }
+      getRelease (article) {
+        HTTP.get(`releases/${article.release}?transform=1`)
+        .then((res) => {
+          this.release = res.data
         })
-        return release
+        .catch((err) => {
+          alert(err)
+        })
       }
     }
   }

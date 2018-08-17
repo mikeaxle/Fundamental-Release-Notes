@@ -8,8 +8,6 @@
              <p><strong>{{ l.title }}</strong> {{ l.desc }}</p>
             </router-link>
 
-
-
             <!-- open new window icon -->
             <div class="notes__subitem-launch">
               <router-link :to="{ name: 'article', params: { id: l.id }}" target="_blank" class="svg svg-new-window svg-new-window-dims"></router-link>
